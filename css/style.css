@@ -16,14 +16,16 @@
 
   /* largura de uma página do livro; a altura segue a proporção 2:3 */
   /* celular: página mais alta, aproveitando a tela em pé */
+  --vh: 100vh;
   --W: min(82vw, 430px);
-  --H: min(calc(var(--W) * 1.62), calc(100dvh - 250px));
+  --H: min(calc(var(--W) * 1.62), calc(var(--vh) - 250px));
 
   --noise: url("../img/noise.png");
 }
 
+@supports (height: 100dvh) { :root { --vh: 100dvh; } }
 @media (min-width: 900px) and (min-aspect-ratio: 1/1) {
-  :root { --W: min(38vw, calc((100dvh - 170px) / 1.5), 440px); --H: calc(var(--W) * 1.5); }
+  :root { --W: min(38vw, calc((var(--vh) - 170px) / 1.5), 440px); --H: calc(var(--W) * 1.5); }
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -163,6 +165,7 @@ body[data-scene=final] .moon { transform: translate(-32vw, 3vh) scale(1.25); }
 /* guirlanda de pingentes: corrente no alto, cada pingente balança no seu ritmo */
 .garland { top: 0; left: 0; right: 0; height: 17vh; }
 .garland .chain { position: absolute; left: 0; top: 0; width: 100%; height: 60%; }
+.charm::after, .o[data-tap]::after, .cx::after, .tstar::after, .bx::after { content: ''; position: absolute; inset: -9px; }
 .charm { position: absolute; left: var(--x); top: var(--y); width: var(--w, 28px); margin-left: calc(var(--w, 28px) / -2); transform-origin: 50% 0; pointer-events: auto; cursor: pointer;
   animation: swing var(--d, 4s) ease-in-out var(--dl, 0s) infinite alternate; }
 @keyframes swing { from { transform: rotate(-8deg); } to { transform: rotate(8deg); } }
@@ -430,7 +433,7 @@ body[data-stage=album] #album { opacity: 1; visibility: visible; transform: none
 .polaroid { position: relative; padding: 10px 10px 0; background: #fffdf8; border-radius: 2px; box-shadow: 0 12px 28px rgba(40, 14, 50, .38), 0 1px 0 rgba(255, 255, 255, .8) inset;
   transform: rotate(var(--tilt)) scale(.86); opacity: .4; transition: transform .7s var(--ease-out), opacity .6s ease; cursor: zoom-in; }
 .slide.act .polaroid { transform: rotate(var(--tilt)); opacity: 1; }
-.polaroid img { display: block; max-width: calc(min(93vw, 620px) - 76px); max-height: calc(100dvh - 330px); min-height: 120px; width: auto; height: auto; object-fit: contain; background: #e9dccb; -webkit-user-drag: none; }
+.polaroid img { display: block; max-width: calc(min(93vw, 620px) - 76px); max-height: calc(var(--vh) - 330px); min-height: 120px; width: auto; height: auto; object-fit: contain; background: #e9dccb; -webkit-user-drag: none; }
 .polaroid figcaption { height: 40px; display: grid; place-items: center; font: 400 22px/1 var(--script); color: #8a6274; }
 .tape { position: absolute; top: -13px; left: 50%; width: 92px; height: 24px; margin-left: -46px; transform: rotate(-3deg); opacity: .88;
   background: repeating-linear-gradient(45deg, rgba(236, 164, 189, .9) 0 6px, rgba(248, 211, 222, .9) 6px 12px); box-shadow: 0 1px 3px rgba(40, 14, 50, .25); }
@@ -443,13 +446,19 @@ body[data-stage=album] #album { opacity: 1; visibility: visible; transform: none
 #lightbox { position: fixed; inset: 0; z-index: 8; display: grid; place-items: center; background: rgba(14, 8, 28, .93); touch-action: none;
   opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility 0s .3s; }
 #lightbox.open { opacity: 1; visibility: visible; transition-delay: 0s; }
-#lightbox img { max-width: 94vw; max-height: 80dvh; object-fit: contain; border: 8px solid #fffdf8; border-radius: 3px; box-shadow: 0 20px 60px rgba(0, 0, 0, .6); transform-origin: 0 0; -webkit-user-drag: none; }
+#lightbox img { max-width: 94vw; max-height: calc(var(--vh) * .8); object-fit: contain; border: 8px solid #fffdf8; border-radius: 3px; box-shadow: 0 20px 60px rgba(0, 0, 0, .6); transform-origin: 0 0; -webkit-user-drag: none; }
 #lightbox .btn { position: absolute; width: 54px; height: 54px; }
 #lb-close { top: max(12px, env(safe-area-inset-top)); right: 12px; }
 #lb-prev { left: 10px; bottom: max(16px, env(safe-area-inset-bottom)); }
 #lb-next { right: 10px; bottom: max(16px, env(safe-area-inset-bottom)); }
 #lb-count { position: absolute; bottom: max(30px, env(safe-area-inset-bottom)); left: 0; right: 0; text-align: center; font-style: italic; color: #fbe9c4; }
 
+#rotate { position: fixed; inset: 0; z-index: 20; display: none; place-content: center; justify-items: center; gap: 14px; padding: 24px; text-align: center;
+  background: radial-gradient(90% 70% at 50% 40%, #5a3f8f, #1d1233 75%); color: #fbe9c4; font-size: 20px; font-style: italic; }
+#rotate svg { width: 64px; color: var(--ouro); animation: tilt 2.4s ease-in-out infinite; }
+#rotate p { margin: 0; }
+@keyframes tilt { 0%, 100% { transform: rotate(-90deg); } 45%, 70% { transform: rotate(0deg); } }
+@media (orientation: landscape) and (max-height: 520px) { #rotate { display: grid; } }
 #flash { position: fixed; inset: 0; z-index: 7; pointer-events: none; opacity: 0; background: radial-gradient(closest-side, #fff8e0, rgba(246, 227, 181, .7) 40%, transparent); }
 #fx { position: fixed; inset: 0; z-index: 9; pointer-events: none; overflow: hidden; }
 .bit { position: absolute; width: var(--s, 14px); pointer-events: none; will-change: transform, opacity; }

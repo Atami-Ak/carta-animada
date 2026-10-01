@@ -140,6 +140,8 @@ function setCurrent(i) {
   folio.textContent = `${i} / ${N}`;
   prevBtn.disabled = i === 1;
   setScene(pages[i - 1].scene);
+  if (pages.slice(i - 1, i + 2).some(p => p.scene === 'barbie')) $$('#covers img').forEach(wake);   // capas: uma página antes
+  if (i >= N - 1) wakePhotos(0, 2);                                                                  // fotos: perto do fim
 }
 
 async function openBook() {
@@ -208,6 +210,7 @@ async function closeBook() {
 function showAlbum() {
   clearInterval(riseTimer);
   body.dataset.stage = 'album';
+  wakePhotos(0, 3);
   setScene('album');
   goPhoto(pi, true);
 }
@@ -353,13 +356,18 @@ const track = $('#track'), viewport = $('#viewport'), dots = $('#dots');
 let pi = 0, autoTimer = 0;
 
 track.innerHTML = photos.map((p, i) => `<figure class="slide"><div class="polaroid" style="--tilt:${[-1.2, 1.4, -.6, 1.8][i % 4]}deg"><span class="tape"></span>
-  <img src="${esc(p.src)}" alt="${esc(p.alt || '')}" ${i > 1 ? 'loading="lazy"' : ''} decoding="async" draggable="false"><figcaption>${i + 1} / ${P}</figcaption></div></figure>`).join('');
+  <img data-src="${esc(p.src)}" alt="${esc(p.alt || `Foto ${i + 1} de ${P}`)}" decoding="async" draggable="false"><figcaption>${i + 1} / ${P}</figcaption></div></figure>`).join('');
 dots.innerHTML = photos.map(() => '<i></i>').join('');
 const slides = $$('.slide', track);
+
+/* carrega sob demanda: troca data-src por src */
+const wake = img => { if (img && img.dataset.src) { img.src = img.dataset.src; delete img.dataset.src; } };
+const wakePhotos = (from, n) => { for (let k = from; k < from + n; k++) wake(slides[k]?.querySelector('img')); };
 
 function goPhoto(i, instant) {
   if (i >= P) return showFinale();
   pi = Math.max(0, i);
+  if (body.dataset.stage === 'album') wakePhotos(pi, 3);
   track.style.transition = instant ? 'none' : '';
   track.style.transform = `translateX(${-pi * 100}%)`;
   slides.forEach((s, k) => s.classList.toggle('act', k === pi));
@@ -458,8 +466,9 @@ document.addEventListener('keydown', e => {
 });
 
 /* ============ ÁUDIO (só toca depois de um toque) ============ */
-const audio = AUDIO_SRC ? new Audio(AUDIO_SRC) : null;
+const audio = AUDIO_SRC ? new Audio() : null;
 if (audio) {
+  audio.preload = 'none'; audio.src = AUDIO_SRC;
   const sb = $('#sound');
   audio.loop = true; audio.volume = .6; sb.hidden = false;
   sb.addEventListener('click', () => (audio.paused ? audio.play().catch(() => {}) : audio.pause()));
@@ -524,7 +533,7 @@ if (!reduce && fairies.length) setInterval(() => {
 const garland = $('#garland'), CHARMS = ['heel', 'lipstick', 'tiara', 'locket', 'mirror', 'bag', 'perfume'];
 garland.innerHTML = '<svg class="chain" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 4Q200 76 400 4" fill="none" stroke="#e3c27a" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="1 6" vector-effect="non-scaling-stroke"/></svg>' +
   CHARMS.map((k, i) => {
-    const t = .1 + i * .8 / (CHARMS.length - 1), y = ((1 - t) ** 2 * 4 + 2 * (1 - t) * t * 76 + t * t * 4) / 60 * 60;   // curva da corrente, em % da altura dela
+    const t = .22 + i * .7 / (CHARMS.length - 1), y = ((1 - t) ** 2 * 4 + 2 * (1 - t) * t * 76 + t * t * 4) / 60 * 60;   // curva da corrente, em % da altura dela
     return `<span class="charm" data-tap="charm" style="--x:${(t * 100).toFixed(1)}%;--y:calc(${(y * .17 * .6).toFixed(2)}vh - 3px);--w:${i === 3 ? 34 : 27}px;--d:${(3.2 + (i * 37 % 10) / 6).toFixed(2)}s;--dl:${(-i * .7).toFixed(1)}s">${D.charm(k)}</span>`;
   }).join('');
 
@@ -535,7 +544,7 @@ BARBIE_DATA.forEach((src, k) => {
   el.className = 'cover-card';
   const x = k % 3 === 0 ? rand(20, 70) : k % 2 ? rand(-2, 10) : rand(78, 90), d = rand(26, 38);
   el.style.cssText = `--x:${x}%;--s:${rand(44, 64)}px;--d:${d}s;--dl:${-(k / BARBIE_DATA.length) * d - rand(0, 4)}s;--dx:${rand(-6, 6)}vw;--r:${rand(-9, 9)}deg`;
-  el.innerHTML = `<img src="${esc(src)}" alt="" loading="lazy" decoding="async" draggable="false">`;
+  el.innerHTML = `<img data-src="${esc(src)}" alt="" decoding="async" draggable="false">`;
   el.firstChild.onerror = () => el.remove();   // capa que não carregar some, em vez de virar moldura vazia
   coversBox.append(el);
 });
