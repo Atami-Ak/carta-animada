@@ -40,7 +40,7 @@ const N = pages.length;
 $$('[data-d]').forEach(el => { const [name, ...args] = el.dataset.d.split('|'); el.innerHTML = D[name](...args); });
 
 /* ============ CENAS ============ */
-const STAR_LEVEL = { capa: 1, jardim: .5, apotecaria: .7, constelacao: 1.4, mar: 1, hogwarts: 1.2, lanternas: .8, neve: .9, album: .6, final: 1.4 };
+const STAR_LEVEL = { capa: 1, jardim: .5, apotecaria: .7, constelacao: 1.4, mar: 1, hogwarts: 1.2, misterio: 1.1, lanternas: .8, neve: .9, album: .6, final: 1.4 };
 let starTarget = 1;
 function setScene(name) {
   body.dataset.scene = name;
@@ -297,8 +297,11 @@ document.addEventListener('click', e => {
       el.animate([0, 5, -4, 2, 0].map(a => ({ transform: `rotate(${a}deg)` })), { duration: 900, easing: 'ease-out' });
       burst(x, r.top + r.height * .35, 'petal', 9, 90); break;
     case 'fairy':
-      el.querySelector('svg').animate([{ transform: 'rotate(0) scale(1)' }, { transform: 'rotate(360deg) scale(1.3)' }, { transform: 'rotate(720deg) scale(1)' }], { duration: 900, easing: 'cubic-bezier(.23,1,.32,1)' });
+      el.querySelector('.fz').animate([{ transform: 'rotate(0) scale(1)' }, { transform: 'rotate(360deg) scale(1.3)' }, { transform: 'rotate(720deg) scale(1)' }], { duration: 900, easing: 'cubic-bezier(.23,1,.32,1)' });
       burst(x, y, 'star', 14, 110); break;
+    case 'bill':
+      el.animate([0, 360].map(a => ({ transform: `rotate(${a}deg)` })), { duration: 900, easing: 'cubic-bezier(.23,1,.32,1)' });
+      burst(x, y, 'star', 14, 120); flash(.18); break;
     case 'bfly':
       el.style.setProperty('--bx', rand(6, 80) + 'vw'); el.style.setProperty('--by', rand(6, 78) + 'vh'); break;
   }
@@ -490,12 +493,36 @@ for (let k = 0, n = reduce ? 3 : 9; k < n; k++) {
 const fairies = $$('.fairy');
 if (!reduce && fairies.length) setInterval(() => {
   if (document.hidden) return;
-  const r = fairies[Math.floor(Math.random() * fairies.length)].getBoundingClientRect();
+  for (const f of fairies) {
+    const r = f.getBoundingClientRect();
+    if (r.right < 0 || r.left > innerWidth) continue;
+    const el = bit('star', rand(4, 10));
+    el.style.left = r.left + r.width / 2 + rand(-10, 10) + 'px'; el.style.top = r.top + r.height * rand(.45, .95) + 'px';
+    el.animate([{ transform: 'translate(-50%,-50%) scale(1) rotate(0deg)', opacity: 1 }, { transform: `translate(calc(-50% + ${rand(-14, 14)}px), calc(-50% + ${rand(26, 60)}px)) scale(.3) rotate(${rand(-90, 90)}deg)`, opacity: 0 }], { duration: rand(1000, 1800), easing: 'ease-out' }).onfinish = () => el.remove();
+  }
+}, lite ? 520 : 230);
+
+/* de vez em quando uma fada dá uma pirueta e solta um punhado de pó */
+if (!reduce && fairies.length) setInterval(() => {
+  if (document.hidden) return;
+  const f = fairies[Math.floor(Math.random() * fairies.length)], r = f.getBoundingClientRect();
   if (r.right < 0 || r.left > innerWidth) return;
-  const el = bit('star', rand(4, 9));
-  el.style.left = r.left + r.width / 2 + rand(-8, 8) + 'px'; el.style.top = r.top + r.height * .7 + 'px';
-  el.animate([{ transform: 'translate(-50%,-50%) scale(1)', opacity: .95 }, { transform: `translate(calc(-50% + ${rand(-10, 10)}px), calc(-50% + ${rand(24, 46)}px)) scale(.4)`, opacity: 0 }], { duration: rand(900, 1500), easing: 'ease-out' }).onfinish = () => el.remove();
-}, lite ? 420 : 180);
+  const loop = Math.random() < .5;
+  f.querySelector('.fz').animate(loop
+    ? [{ transform: 'rotate(0deg) scale(1)' }, { transform: 'rotate(360deg) scale(1.15)' }]
+    : [{ transform: 'translateY(0) scale(1)' }, { transform: 'translateY(-22px) scale(1.2)', offset: .4 }, { transform: 'translateY(0) scale(1)' }],
+    { duration: loop ? 850 : 1100, easing: 'cubic-bezier(.45,.05,.3,1)' });
+  burst(r.left + r.width / 2, r.top + r.height / 2, 'star', 7, 60);
+}, 3400);
+
+/* vaga-lumes */
+const ffBox = $('#fireflies');
+for (let k = 0, n = reduce ? 4 : 14; k < n; k++) {
+  const el = document.createElement('i');
+  el.className = 'firefly';
+  el.style.cssText = `--x:${rand(2, 96)}%;--y:${rand(52, 96)}%;--d:${rand(6, 12)}s;--dl:${-rand(0, 12)}s;--ax:${rand(-30, 30)}px;--ay:${rand(-40, 10)}px;--bx:${rand(-40, 40)}px;--by:${rand(-60, 0)}px`;
+  ffBox.append(el);
+}
 
 /* ============ CÉU: estrelas, poeira dourada, meteoros ============ */
 const cv = $('#stars'), cx = cv.getContext('2d');

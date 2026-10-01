@@ -23,6 +23,7 @@
     <div class="tint t-hogwarts" data-in="hogwarts"></div>
     <div class="tint t-lanternas" data-in="lanternas"></div>
     <div class="tint t-neve" data-in="neve"></div>
+    <div class="tint t-misterio" data-in="misterio"></div>
     <div class="tint t-album" data-in="album"></div>
     <div class="tint t-final" data-in="final"></div>
     <canvas id="stars"></canvas>
@@ -34,8 +35,14 @@
 
   <!-- camada 2: cenário -->
   <div class="layer scenery" data-depth="14">
-    <div class="sc magicbg" data-in="constelacao" data-d="magic|#c4b1e6"></div>
+    <div class="sc magicbg" data-in="constelacao misterio" data-d="magic|#c4b1e6"></div>
+    <div class="hills h2" data-d="hills|#2e1d58"></div>
     <div class="hills" data-d="hills"></div>
+    <div class="sc pines p2" data-in="misterio" data-d="pines|#1c2c48"></div>
+    <div class="sc pines" data-in="misterio" data-d="pines"></div>
+    <div class="sc billc" data-in="misterio" data-tap="bill" data-d="bill"></div>
+    <div class="sc meadow" data-in="capa jardim lanternas constelacao album final" data-d="meadow"></div>
+    <div class="sc fireflies" id="fireflies" data-in="capa jardim lanternas misterio constelacao final"></div>
     <div class="sc castle" data-in="capa jardim hogwarts lanternas neve final" data-d="castle|#3b2869"></div>
     <div class="sc lanterns" id="lanterns" data-in="lanternas final"></div>
     <div class="sc candle k1" data-in="hogwarts" data-d="candle"></div>
@@ -82,13 +89,14 @@
   <div class="layer fore" data-depth="34">
     <div class="sc garden garden-l" data-in="capa jardim lanternas album final" data-tap="flower" data-d="garden"></div>
     <div class="sc garden garden-r" data-in="capa jardim mar lanternas album final" data-tap="flower" data-d="garden"></div>
-    <div class="sc garden garden-l" data-in="constelacao" data-tap="flower" data-d="garden|#8fb4f0|#cfe0ff|#a9c2f5|#e3ecff|#dfe9ff|#b9cdf7"></div>
-    <div class="sc garden garden-r" data-in="constelacao" data-tap="flower" data-d="garden|#8fb4f0|#cfe0ff|#a9c2f5|#e3ecff|#dfe9ff|#b9cdf7"></div>
-    <div class="fairy fa" data-tap="fairy"><i data-d="fairy|#7cc576|#f4d675"></i></div>
-    <div class="fairy fb" data-tap="fairy"><i data-d="fairy|#ec8fb5|#4a2f2a|1"></i></div>
-    <div class="fairy fc" data-tap="fairy"><i data-d="fairy|#b79be6|#c9763f"></i></div>
-    <div class="fairy fd" data-tap="fairy"><i data-d="fairy|#7fb6ee|#2e1f1c|1"></i></div>
-    <div class="fairy fe" data-tap="fairy"><i data-d="fairy|#f2c14e|#f7e6a6"></i></div>
+    <div class="sc garden garden-l" data-in="constelacao" data-tap="flower" data-d="garden|#8fb4f0|#cfe0ff|#e3ecff|#8fb4f0|1"></div>
+    <div class="sc garden garden-r" data-in="constelacao" data-tap="flower" data-d="garden|#8fb4f0|#cfe0ff|#e3ecff|#8fb4f0|1"></div>
+    <div class="fairy fa" data-tap="fairy"><i><span class="fz"><img class="asas" src="img/fada-asas.png" alt="" draggable="false"><img class="corpo" src="img/fada-sininho.png" alt="" draggable="false"></span></i></div>
+    <div class="fairy fb" data-tap="fairy"><i><span class="fz"><img class="asas" src="img/fada-asas.png" alt="" draggable="false"><img class="corpo" src="img/fada-silvermist.png" alt="" draggable="false"></span></i></div>
+    <div class="fairy fc" data-tap="fairy"><i><span class="fz"><img class="asas" src="img/fada-asas.png" alt="" draggable="false"><img class="corpo" src="img/fada-rosetta.png" alt="" draggable="false"></span></i></div>
+    <div class="fairy fd" data-tap="fairy"><i><span class="fz"><img class="asas" src="img/fada-asas.png" alt="" draggable="false"><img class="corpo" src="img/fada-periwinkle.png" alt="" draggable="false"></span></i></div>
+    <div class="fairy fe" data-tap="fairy"><i><span class="fz"><img class="asas" src="img/fada-asas.png" alt="" draggable="false"><img class="corpo" src="img/fada-fawn.png" alt="" draggable="false"></span></i></div>
+    <div class="fairy ff" data-tap="fairy"><i><span class="fz"><img class="asas" src="img/fada-asas.png" alt="" draggable="false"><img class="corpo" src="img/fada-vidia.png" alt="" draggable="false"></span></i></div>
     <div class="sc bfly snitch" data-in="hogwarts" data-tap="bfly" data-d="snitch"></div>
     <div class="sc garden garden-l" data-in="apotecaria" data-tap="flower" data-d="herbs"></div>
     <div class="sc bfly" data-in="jardim album final" data-tap="bfly" data-d="butterfly"></div>

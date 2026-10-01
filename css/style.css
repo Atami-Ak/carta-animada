@@ -50,6 +50,7 @@ button:focus-visible { outline: 2px solid var(--ouro); outline-offset: 3px; }
 .t-hogwarts { background: radial-gradient(60% 35% at 50% 12%, rgba(227, 194, 122, .36), transparent 70%), linear-gradient(180deg, #141033, #2a1d55 55%, #3f2a63); }
 .t-lanternas { background: radial-gradient(80% 50% at 50% 76%, rgba(240, 170, 90, .5), transparent 70%), linear-gradient(180deg, #1d1245, #4a2f78 55%, #8a4f86); }
 .t-neve { background: radial-gradient(70% 45% at 50% 20%, rgba(190, 215, 255, .36), transparent 70%), linear-gradient(180deg, #1b1a4a, #4a4a94 55%, #a9b4e6); }
+.t-misterio { background: radial-gradient(60% 40% at 50% 30%, rgba(247, 213, 74, .22), transparent 70%), linear-gradient(180deg, #10142e, #1f2c52 50%, #2f5560 86%, #1c3340); }
 .t-album { background: radial-gradient(80% 60% at 50% 30%, #7d4a78, #3a2050 60%, #1f1236); }
 .t-final { background: radial-gradient(70% 45% at 50% 60%, rgba(227, 194, 122, .38), transparent 70%), linear-gradient(180deg, #120a28, #2c1b55 60%, #4a2f6e); }
 
@@ -89,6 +90,20 @@ body[data-scene=final] .moon { transform: translate(-32vw, 3vh) scale(1.25); }
 
 .hills { position: absolute; left: -40px; right: -40px; bottom: -40px; height: calc(15vh + 40px); opacity: .9; }
 .hills svg { height: 100%; }
+.hills.h2 { height: calc(21vh + 40px); opacity: .75; transform: scaleX(-1); }
+.pines { left: -40px; right: -40px; bottom: 6vh; height: 17vh; }
+.pines.p2 { bottom: 10vh; height: 20vh; --o: .7; }
+.pines svg { height: 100%; }
+.pines.p2 svg { transform: scaleX(-1); }
+.billc { top: 5%; left: 12%; width: clamp(50px, 15vw, 80px); background: radial-gradient(closest-side, rgba(247, 213, 74, .45), transparent 72%); }
+.billc svg { animation: bob 5s ease-in-out infinite; }
+.bill-eye { transform-origin: 0 1px; animation: blink 5s ease-in-out infinite; }
+@keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.08); } }
+.meadow { left: -40px; right: -40px; bottom: -6px; height: 9vh; }
+.meadow svg { height: 100%; }
+.fireflies { inset: 0; }
+.firefly { position: absolute; left: var(--x); top: var(--y); width: 5px; height: 5px; border-radius: 50%; background: radial-gradient(closest-side, #fff7c2, rgba(255, 232, 130, .7) 45%, transparent); animation: firefly var(--d) ease-in-out var(--dl) infinite; }
+@keyframes firefly { 0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: .15; } 30% { transform: translate3d(var(--ax), var(--ay), 0) scale(2.2); opacity: 1; } 60% { transform: translate3d(var(--bx), var(--by), 0) scale(1.4); opacity: .4; } 80% { opacity: .95; } }
 .castle { left: 50%; bottom: 10.5%; width: clamp(130px, 40vw, 260px); margin-left: calc(clamp(130px, 40vw, 260px) / -2); --o: .8; }
 .magicbg { left: 50%; top: 46%; width: min(128vw, 760px); aspect-ratio: 1; margin: calc(min(128vw, 760px) / -2) 0 0 calc(min(128vw, 760px) / -2); --o: .3; }
 .magicbg svg { animation: spin 120s linear infinite; }
@@ -160,9 +175,9 @@ body[data-scene=neve] .petal.flake { opacity: .9; }
 @keyframes flutter { from { transform: rotate(-40deg) translateX(-12px); } to { transform: rotate(70deg) translateX(12px); } }
 
 /* primeiro plano */
-.garden { bottom: -8px; width: clamp(96px, 30vw, 200px); pointer-events: none; }
+.garden { bottom: -10px; width: clamp(128px, 40vw, 270px); pointer-events: none; }
 .garden svg { transform-origin: 50% 100%; animation: sway 7s ease-in-out infinite; }
-.garden-l { left: -3%; } .garden-r { right: -3%; }
+.garden-l { left: -7%; } .garden-r { right: -7%; }
 .garden-r svg { animation-duration: 8.6s; animation-delay: -3s; scale: -1 1; }
 @keyframes sway { 0%, 100% { transform: rotate(-2.2deg); } 50% { transform: rotate(2.2deg); } }
 .bfly { top: 0; left: 0; width: 30px; padding: 10px; box-sizing: content-box; transform: translate(70vw, 14vh) !important; transition: transform 2.4s var(--ease-io), opacity 1.2s ease; }
@@ -170,25 +185,32 @@ body[data-scene=neve] .petal.flake { opacity: .9; }
 .wing { animation: flap .42s ease-in-out infinite alternate; }
 @keyframes flap { to { transform: scaleX(.3); } }
 
-/* fadas: voam pelas margens, nunca sobre o texto */
-.fairy { position: absolute; width: clamp(34px, 10vw, 54px); pointer-events: auto; cursor: pointer;
-  background: radial-gradient(closest-side, rgba(255, 240, 180, .5), transparent 72%); animation: var(--path) var(--d) ease-in-out var(--dl, 0s) infinite; }
-.fairy i { display: block; animation: face var(--d) steps(1) var(--dl, 0s) infinite; }
-.fairy svg { animation: bob 2.6s ease-in-out infinite; }
-.fairy .wing { animation-duration: .16s; }
-.fa { top: 8vh; left: 0; --path: fly-a; --d: 26s; }
-.fb { top: 80vh; left: 0; --path: fly-b; --d: 34s; --dl: -9s; }
-.fc { top: 20vh; left: 0; --path: fly-c; --d: 19s; --dl: -4s; width: clamp(26px, 7.5vw, 42px); }
-.fd { top: 14vh; left: 0; --path: fly-d; --d: 41s; --dl: -20s; width: clamp(28px, 8vw, 44px); }
-.fe { top: 86vh; left: 0; --path: fly-e; --d: 30s; --dl: -15s; width: clamp(24px, 7vw, 38px); }
-@keyframes face { 0% { transform: scaleX(1); } 50% { transform: scaleX(-1); } }
-@keyframes fly-a { 0%, 100% { transform: translate3d(-14vw, 0, 0); } 22% { transform: translate3d(40vw, 5vh, 0); } 50% { transform: translate3d(104vw, -2vh, 0); } 76% { transform: translate3d(48vw, 6vh, 0); } }
-@keyframes fly-b { 0%, 100% { transform: translate3d(-14vw, 0, 0); } 25% { transform: translate3d(30vw, -4vh, 0); } 50% { transform: translate3d(104vw, 3vh, 0); } 75% { transform: translate3d(60vw, -5vh, 0); } }
-@keyframes fly-c { 0%, 100% { transform: translate3d(91vw, 0, 0); } 25% { transform: translate3d(93vw, 26vh, 0); } 50% { transform: translate3d(92vw, 52vh, 0); } 75% { transform: translate3d(93vw, 20vh, 0); } }
-@keyframes fly-d { 0%, 100% { transform: translate3d(104vw, 0, 0); } 30% { transform: translate3d(55vw, -8vh, 0); } 50% { transform: translate3d(-14vw, -3vh, 0); } 80% { transform: translate3d(50vw, -9vh, 0); } }
-@keyframes fly-e { 0%, 100% { transform: translate3d(-2vw, 0, 0); } 25% { transform: translate3d(-1vw, -30vh, 0); } 50% { transform: translate3d(0, -62vh, 0); } 75% { transform: translate3d(-1vw, -28vh, 0); } }
-.fd i { animation-name: face-r; }
-@keyframes face-r { 0% { transform: scaleX(-1); } 50% { transform: scaleX(1); } }
+/* fadas: voam pelas margens, nunca sobre o texto. Asas e corpo são camadas separadas para as asas baterem. */
+.fairy { position: absolute; left: 0; width: clamp(36px, 10.5vw, 60px); pointer-events: auto; cursor: pointer; animation: var(--path) var(--d) ease-in-out var(--dl, 0s) infinite; }
+.fairy i { display: block; animation: var(--face, face) var(--d) steps(1) var(--dl, 0s) infinite; }
+.fairy::before { content: ''; position: absolute; inset: -30% -55%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 244, 190, .55), rgba(255, 236, 160, .18) 55%, transparent); animation: aura 2.4s ease-in-out infinite; pointer-events: none; }
+.fz { display: block; position: relative; transform-origin: 50% 40%; animation: hover var(--h, 2.4s) ease-in-out infinite; }
+.fz img { display: block; width: 100%; -webkit-user-drag: none; }
+.fz .asas { position: absolute; inset: 0; transform-origin: 46% 40%; animation: wingflap .15s ease-in-out infinite alternate; }
+.fz .corpo { position: relative; }
+@keyframes wingflap { from { transform: scaleX(1) rotate(0deg); } to { transform: scaleX(.55) rotate(8deg); } }
+@keyframes hover { 0%, 100% { transform: translateY(0) rotate(-5deg); } 25% { transform: translateY(-6px) rotate(1deg); } 50% { transform: translateY(-10px) rotate(5deg); } 75% { transform: translateY(-3px) rotate(-1deg); } }
+@keyframes aura { 50% { transform: scale(1.2); opacity: .55; } }
+@keyframes face { 0% { transform: scaleX(-1); } 50% { transform: scaleX(1); } }
+@keyframes face-r { 0% { transform: scaleX(1); } 50% { transform: scaleX(-1); } }
+.fa { top: 1.5vh; --path: fly-a; --d: 28s; }
+.fb { top: 79vh; --path: fly-b; --d: 35s; --dl: -9s; --h: 2.9s; }
+.fc { top: 20vh; --path: fly-c; --d: 19s; --dl: -4s; --h: 2s; width: clamp(24px, 7vw, 40px); }
+.fd { top: 9vh; --path: fly-d; --d: 41s; --dl: -20s; --h: 3.2s; --face: face-r; width: clamp(28px, 8vw, 46px); }
+.fe { top: 80vh; --path: fly-e; --d: 30s; --dl: -15s; --h: 2.2s; width: clamp(22px, 6.5vw, 36px); }
+.ff { top: 83vh; --path: fly-f; --d: 37s; --dl: -27s; --h: 2.7s; --face: face-r; width: clamp(24px, 7vw, 40px); }
+/* cada rota tem paradas (a fada paira) e muda de escala para dar profundidade */
+@keyframes fly-a { 0%, 100% { transform: translate3d(-16vw, 0, 0) scale(.8); } 12% { transform: translate3d(20vw, 2.5vh, 0) scale(1); } 24% { transform: translate3d(23vw, 1vh, 0) scale(1.08); } 50% { transform: translate3d(106vw, -1vh, 0) scale(.8); } 62% { transform: translate3d(70vw, 3vh, 0) scale(1); } 76% { transform: translate3d(66vw, 1vh, 0) scale(1.1); } }
+@keyframes fly-b { 0%, 100% { transform: translate3d(-16vw, 0, 0) scale(.85); } 15% { transform: translate3d(26vw, -1vh, 0) scale(1.06); } 30% { transform: translate3d(30vw, 1vh, 0) scale(1); } 50% { transform: translate3d(106vw, 3vh, 0) scale(.8); } 68% { transform: translate3d(62vw, 0, 0) scale(1.1); } 82% { transform: translate3d(58vw, 2vh, 0) scale(1); } }
+@keyframes fly-c { 0%, 100% { transform: translate3d(91vw, 0, 0) scale(.9); } 25% { transform: translate3d(93vw, 26vh, 0) scale(1.1); } 50% { transform: translate3d(92vw, 52vh, 0) scale(.9); } 75% { transform: translate3d(93vw, 20vh, 0) scale(1.05); } }
+@keyframes fly-d { 0%, 100% { transform: translate3d(106vw, 0, 0) scale(.8); } 18% { transform: translate3d(60vw, -4vh, 0) scale(1); } 32% { transform: translate3d(56vw, -2vh, 0) scale(1.08); } 50% { transform: translate3d(-16vw, -3vh, 0) scale(.8); } 70% { transform: translate3d(46vw, -5vh, 0) scale(1); } 84% { transform: translate3d(50vw, -3vh, 0) scale(1.06); } }
+@keyframes fly-e { 0%, 100% { transform: translate3d(-2vw, 0, 0) scale(.9); } 25% { transform: translate3d(-1vw, -30vh, 0) scale(1.1); } 50% { transform: translate3d(0, -62vh, 0) scale(.9); } 75% { transform: translate3d(-1vw, -28vh, 0) scale(1.05); } }
+@keyframes fly-f { 0%, 100% { transform: translate3d(106vw, 0, 0) scale(.8); } 22% { transform: translate3d(72vw, -2vh, 0) scale(1.05); } 34% { transform: translate3d(68vw, 0, 0) scale(1); } 50% { transform: translate3d(-16vw, 1vh, 0) scale(.8); } 75% { transform: translate3d(30vw, -1vh, 0) scale(1.05); } }
 
 /* ================= LIVRO 3D ================= */
 .stage { position: absolute; inset: 0; perspective: 1800px; perspective-origin: 50% 42%;
@@ -266,8 +288,8 @@ body[data-stage=album] .stage { opacity: 0; transform: scale(.6); pointer-events
 .back .rule { inset: 13px 19px 13px 11px; }
 .rule .corner { width: 13%; opacity: .75; }
 
-.page-in { position: absolute; inset: 13px 11px 13px 19px; padding: 9px 15px 20px; display: grid; grid-template-rows: 15% minmax(0, 1fr) 17%; }
-.orn-top, .orn-bot { display: flex; align-items: center; justify-content: center; gap: 7px; min-height: 0; }
+.page-in { position: absolute; inset: 13px 11px 13px 19px; padding: 9px 15px 20px; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 15% minmax(0, 1fr) 17%; }
+.orn-top, .orn-bot { display: flex; align-items: center; justify-content: center; gap: 4px; min-height: 0; min-width: 0; }
 .orn-bot { align-items: flex-end; }
 .orn-top > *, .orn-bot > * { opacity: 0; transform: translateY(7px) scale(.95); transition: opacity .7s ease, transform .9s var(--ease-out); }
 .seen .orn-top > *, .seen .orn-bot > * { opacity: 1; transform: none; }
@@ -279,8 +301,8 @@ body[data-stage=album] .stage { opacity: 0; transform: scale(.6); pointer-events
 .o-star { width: calc(var(--W) * .05); } .o-star svg { animation: glint 4.4s ease-in-out infinite; }
 .o-star:last-child svg { animation-delay: -2s; }
 .o-crown { width: calc(var(--W) * .17); }
-.o-branch { width: calc(var(--W) * .25); }
-.o-flower { width: calc(var(--W) * .17); } .o-flower.sm { width: calc(var(--W) * .11); }
+.o-branch { width: calc(var(--W) * .17); }
+.o-flower { width: calc(var(--W) * .17); } .o-flower.sm { width: calc(var(--W) * .1); }
 .o-flower svg { animation: sway 6s ease-in-out infinite; }
 .o-flask { width: calc(var(--W) * .085); } .o-vial { width: calc(var(--W) * .052); }
 .paper .flask-svg path[stroke] { stroke: rgba(107, 74, 94, .65); fill: rgba(255, 255, 255, .35); }
@@ -290,6 +312,10 @@ body[data-stage=album] .stage { opacity: 0; transform: scale(.6); pointer-events
 .in { position: absolute; inset: 31% 31% 29%; display: block; }
 .o-laurel .in svg { animation: beat 2.6s ease-in-out infinite; }
 .o-col { width: calc(var(--W) * .052); }
+.o-journal { width: calc(var(--W) * .13); }
+.o-bill { width: calc(var(--W) * .14); }
+.o-sym { width: calc(var(--W) * .07); } .o-sym.q { width: calc(var(--W) * .04); opacity: .6; }
+.o-shoot { width: calc(var(--W) * .13); }
 .o-candle { width: calc(var(--W) * .04); }
 .o-snitch { width: calc(var(--W) * .27); }
 .o-bolt { width: calc(var(--W) * .06); }
@@ -321,7 +347,7 @@ body[data-stage=album] .stage { opacity: 0; transform: scale(.6); pointer-events
 .lay-citacao .txt .by span { vertical-align: middle; display: inline-block; max-width: 72%; text-align: left; }
 .lay-citacao .txt .by { margin-top: 1.3em; font-size: .6em; font-style: normal; letter-spacing: .02em; color: #9a7384; }
 .txt p:last-child { margin-bottom: 0; }
-.lay-livro .txt p { text-align: left; hyphens: auto; -webkit-hyphens: auto; }
+.lay-livro .txt p { text-align: left; }
 .lay-livro .txt p::first-letter { font: 400 3.1em/.72 var(--script); float: left; margin: .12em .08em 0 0; color: var(--rosa-f); }
 /* continuação de frase: sem capitular */
 .page-in.cont .txt p::first-letter { font: inherit; color: inherit; float: none; margin: 0; }
@@ -405,5 +431,5 @@ body[data-stage=album] #album { opacity: 1; visibility: visible; transform: none
   .sc, .txt, .orn-top > *, .orn-bot > *, .book, .moon, .track, .polaroid { transition-duration: .3s !important; transition-delay: 0s !important; }
   .txt { filter: none; transform: none; }
   .petal { display: none; }
-  .fa { left: 8vw; } .fb { left: 74vw; } .fc { left: 86vw; } .fd { left: 40vw; } .fe { left: 2vw; }
+  .fa { left: 8vw; } .fb { left: 74vw; } .fc { left: 86vw; } .fd { left: 40vw; } .fe { left: 2vw; } .ff { left: 60vw; }
 }

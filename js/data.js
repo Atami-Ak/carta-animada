@@ -66,7 +66,7 @@ const PAGE_CONFIG = [
     img: "img/apotecaria-banner.jpg", pos: "50% 50%", avatar: "img/maomao.png" },
   { quote: ["— Você era o meu novo sonho.", "— E você era o meu."], by: "Flynn e Rapunzel, Enrolados", scene: "lanternas" },
   { sentences: [4], part: 0, scene: "jardim",      layout: "centro" },
-  { sentences: [4], part: 1, scene: "hogwarts",    layout: "livro" },
+  { sentences: [4], part: 1, scene: "misterio",    layout: "livro" },
   { quote: ["Frieren levará nossas memórias para o futuro."], by: "Himmel, Frieren e a Jornada para o Além", scene: "constelacao",
     img: "img/frieren-capa.jpg", pos: "50% 42%", avatar: "img/himmel.png" },
   { sentences: [4], part: 2, scene: "mar",         layout: "centro" },
@@ -75,7 +75,7 @@ const PAGE_CONFIG = [
 ];
 /* img = ilustração colada no alto da página; pos = ponto de corte; avatar = medalhão ao lado do nome. */
 /* Páginas com "quote" são citações de personagens (não fazem parte da carta).
-   Para tirar uma, apague a linha. Cenas extras: hogwarts | lanternas | neve */
+   Para tirar uma, apague a linha. Cenas extras: hogwarts | lanternas | neve | misterio */
 
 /* Tempos em milissegundos. */
 const ANIMATIONS = {

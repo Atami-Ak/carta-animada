@@ -25,6 +25,19 @@ const DECOR = (() => {
     `<circle r="7" fill="${core}"/>` +
     rot(6, k => `<circle r="1.4" cy="-10" fill="${C.ouroF}" transform="rotate(${k * 60})"/>`);
 
+  const sunG = () =>
+    rot(16, k => `<path d="M0-13C-5-22-4-36 0-42C4-36 5-22 0-13Z" fill="#f2a81d" transform="rotate(${k * 22.5})"/>`) +
+    rot(16, k => `<path d="M0-12C-4-20-3-30 0-36C3-30 4-20 0-12Z" fill="#ffd54f" transform="rotate(${k * 22.5 + 11.25})"/>`) +
+    `<circle r="14.5" fill="#6b3f1d"/><circle r="10" fill="#4a2a12"/>` +
+    rot(14, k => `<circle r="1.1" cy="-12" fill="#c98a3c" transform="rotate(${k * 25.7})"/>`) +
+    rot(9, k => `<circle r="1" cy="-6.5" fill="#8a5a2a" transform="rotate(${k * 40})"/>`);
+
+  const lilyG = (a, b) =>
+    rot(6, k => `<g transform="rotate(${k * 60})"><path d="M0-3C-10-14-9-34 0-47C9-34 10-14 0-3Z" fill="${a}"/><path d="M0-6C-3-16-2.5-30 0-41C2.5-30 3-16 0-6Z" fill="${b}" opacity=".5"/>
+      <circle cx="-2.5" cy="-20" r=".8" fill="${b}"/><circle cx="2" cy="-25" r=".7" fill="${b}"/><circle cx="1" cy="-15" r=".7" fill="${b}"/></g>`) +
+    rot(6, k => `<g transform="rotate(${k * 60 + 30})"><path d="M0 0V-17" stroke="#a9c97a" stroke-width="1" fill="none"/><ellipse cy="-18.5" rx="1.7" ry="3.2" fill="#b5542a"/></g>`) +
+    `<circle r="3.2" fill="#d9e8a0"/>`;
+
   const leaves = (list, c) =>
     list.map(([x, y, r, s = 1]) => `<path d="${LEAF}" fill="${c}" transform="translate(${x} ${y}) rotate(${r}) scale(${s})"/>`).join('');
 
@@ -41,16 +54,23 @@ const DECOR = (() => {
       `<path d="M4 52C30 50 70 34 116 8" fill="none" stroke="${s}" stroke-width="1.6" stroke-linecap="round"/>` +
       leaves([[22, 50, -70], [36, 46, 20], [52, 40, -80], [66, 34, 10], [80, 27, -85], [92, 20, 5], [104, 13, -80, .8]], c), 'branch'),
 
-    garden: (a = C.rosa, a2 = C.rosaC, b = C.lilas, b2 = '#e6dcf7', c = '#fff6ee', c2 = C.rosaC) => svg('0 0 140 160',
-      `<g fill="none" stroke="${C.folhaF}" stroke-width="2.2" stroke-linecap="round">
-         <path d="M34 160C36 118 26 86 40 54"/><path d="M72 160C72 130 82 104 76 78"/><path d="M104 160C106 138 114 118 110 100"/>
-         <path d="M18 160C18 140 10 128 6 118"/><path d="M124 160C126 146 134 138 138 130"/>
-       </g>` +
-      leaves([[35, 120, -150, 1.2], [36, 96, -20, 1.1], [74, 128, -25, 1.2], [76, 104, -155, 1], [107, 130, -150, 1], [108, 118, -25, .9], [8, 124, -110, .9], [134, 134, -60, .9]], C.folha) +
-      `<g transform="translate(40 48) scale(.56)">${flowerG(a, a2)}</g>
-       <g transform="translate(77 72) scale(.42)">${flowerG(b, b2)}</g>
-       <g transform="translate(110 96) scale(.34)">${flowerG(c, c2)}</g>
-       <circle cx="6" cy="116" r="5" fill="${a}"/><circle cx="138" cy="128" r="4.5" fill="${b}"/>`, 'garden-svg'),
+    garden: (a = C.rosa, a2 = C.rosaC, lily = '#fff5f8', lily2 = '#f29bb8', wild = '') => svg('0 0 200 230',
+      `<g fill="none" stroke="${C.folhaF}" stroke-linecap="round">
+         <path stroke-width="4.5" d="M62 230C66 170 54 118 62 66"/><path stroke-width="3" d="M128 230C132 190 120 150 127 110"/>
+         <path stroke-width="2.6" d="M28 230C28 200 34 172 30 146"/><path stroke-width="2.4" d="M170 230C171 204 176 180 170 158"/>
+         <path stroke-width="2" d="M96 230C96 212 100 198 97 186"/><path stroke-width="2" d="M150 230C150 218 156 206 158 198"/>
+       </g>
+       <g fill="${C.folhaF}"><path d="M61 150C40 140 26 118 30 104C50 108 62 126 61 150Z"/><path d="M63 120C84 112 98 92 94 78C76 82 62 98 63 120Z"/>
+         <path d="M128 190C120 160 126 130 136 112C138 140 136 168 132 190Z"/><path d="M124 200C112 176 104 158 100 138C114 152 124 174 128 200Z"/></g>
+       <g fill="${C.folha}"><path d="M62 186C44 180 32 162 34 150C50 152 62 168 62 186Z"/><path d="M170 206C160 190 158 174 162 162C170 172 174 190 170 206Z"/>
+         <path d="M28 200C18 190 12 176 14 166C24 172 30 186 28 200Z"/></g>` +
+      Array.from({ length: 9 }, (_, i) => `<path d="M${10 + i * 22} 230C${8 + i * 22} 214 ${14 + i * 22} 204 ${17 + i * 22} 196C${17 + i * 22} 210 ${15 + i * 22} 220 ${15 + i * 22} 230Z" fill="${i % 2 ? '#4c7a5c' : C.folhaF}"/>`).join('') +
+      `<g transform="translate(62 60) scale(1.02)">${wild ? flowerG(a, a2) : sunG()}</g>
+       <g transform="translate(127 104) rotate(14) scale(.66)">${lilyG(lily, lily2)}</g>
+       <g transform="translate(30 140) scale(.5)">${flowerG(a, a2)}</g>
+       <g transform="translate(170 152) rotate(-20) scale(.44)">${lilyG('#f6e6ff', '#b98fe0')}</g>
+       <g transform="translate(97 182) scale(.3)">${wild ? flowerG(lily, a2) : sunG()}</g>
+       <g transform="translate(158 196) scale(.24)">${flowerG('#fff6ee', C.rosaC)}</g>`, 'garden-svg'),
 
     herbs: () => svg('0 0 140 160',
       `<g fill="none" stroke="${C.folhaF}" stroke-width="2" stroke-linecap="round">
@@ -221,25 +241,56 @@ const DECOR = (() => {
        <rect x="20" y="45" width="20" height="4" rx="2" fill="#a8947b"/>
        <g fill="${C.folha}"><circle cx="20" cy="14" r="3"/><circle cx="27" cy="12" r="3.4"/><circle cx="15" cy="13" r="2.2"/></g>`, 'mortar-svg'),
 
-    /* fada: vestido de folha, coque (ou cachos), asas translúcidas, sapatilha com pompom */
-    fairy: (dress = '#7cc576', hair = '#f4d675', curly = '') => {
-      const wing = `<g class="wing"><path d="M0 0C-6-20-24-24-22-8C-21-1-10 1 0 0Z" fill="rgba(235,245,255,.6)" stroke="#fff6dc" stroke-width=".6"/>
-        <path d="M0 0C-10 2-18 10-12 16C-7 19-2 9 0 0Z" fill="rgba(235,245,255,.45)" stroke="#fff6dc" stroke-width=".5"/></g>`;
-      const hairTop = curly
-        ? [[-6, -8], [-7, -3], [-6.5, 2], [6, -8], [7, -3], [6.5, 2], [-3, -11], [3, -11], [0, -12]].map(([x, y]) => `<circle cx="${x}" cy="${y - 5}" r="3.1" fill="${hair}"/>`).join('')
-        : `<circle cy="-17.5" r="3.2" fill="${hair}"/><path d="M-6.5-5C-7-13 7-13 6.5-5C4-9 1-9.5-6.5-5Z" fill="${hair}"/>`;
-      return svg('-26 -26 52 58',
-        `<g transform="translate(0 3)">${wing}<g transform="scale(-1 1)">${wing}</g></g>
-         <g stroke="#f3c9a8" stroke-width="2" stroke-linecap="round"><path d="M-2 17L-3 26M2 17L3.5 25M-5 5L-10 11M5 5L11 0"/></g>
-         <path d="M-5 2C-6 8-9 14-8 18L-4 15L-1 19L2 15L5 19L8 17C9 13 6 8 5 2Z" fill="${dress}"/>
-         <ellipse cx="-3.5" cy="27" rx="2.6" ry="1.5" fill="${dress}"/><ellipse cx="4" cy="26" rx="2.6" ry="1.5" fill="${dress}"/>
-         <circle cx="-4.5" cy="26" r="1.3" fill="#fff"/><circle cx="3" cy="25" r="1.3" fill="#fff"/>
-         ${curly ? hairTop : ''}<circle cy="-5" r="6" fill="#f8d8bd"/>${curly ? '' : hairTop}
-         <circle cx="-2.2" cy="-5" r=".8" fill="#4a3040"/><circle cx="2.2" cy="-5" r=".8" fill="#4a3040"/>
-         <path d="M-1.6-2.300Q0-1 1.6-2.3" fill="none" stroke="#c7607a" stroke-width=".7" stroke-linecap="round"/>
-         <circle cx="-3.8" cy="-3.2" r="1.1" fill="#f6a9b8" opacity=".6"/><circle cx="3.8" cy="-3.2" r="1.1" fill="#f6a9b8" opacity=".6"/>
-         <path d="${STAR}" fill="#fff3c4" transform="translate(12.5 -2) scale(.28)"/>`, 'fairy-svg');
+    sunflower: () => svg('-46 -46 92 92', sunG(), 'flower'),
+    lily: (a = '#fff5f8', b = '#f29bb8') => svg('-50 -50 100 100', lilyG(a, b), 'flower'),
+
+    /* faixa de relva e florzinhas ao pé da cena */
+    meadow: () => {
+      let o = '';
+      for (let i = 0; i < 34; i++) {
+        const x = 6 + i * 11.8 + Math.sin(i * 2.3) * 4, h = 16 + (Math.sin(i * 1.7) + 1) * 11;
+        o += `<path d="M${x} 60C${x - 2} ${60 - h * .6} ${x + 3} ${60 - h * .9} ${x + 5} ${60 - h}C${x + 4} ${60 - h * .5} ${x + 3} 52 ${x + 3} 60Z" fill="${i % 2 ? C.folhaF : '#4c7a5c'}"/>`;
+        if (i % 3 === 0) o += `<g transform="translate(${x + 5} ${58 - h}) scale(.085)">${i % 2 ? sunG() : flowerG([C.rosa, C.lilas, '#fff6ee'][i % 3], C.rosaC)}</g>`;
+      }
+      return svg('0 0 400 60', o, 'meadow-svg', 'preserveAspectRatio="xMidYMax slice"');
     },
+
+    /* ---- Gravity Falls ---- */
+    pines: (f = '#0e1830') => {
+      let o = '';
+      for (let i = 0; i < 26; i++) {
+        const x = i * 16 - 6 + Math.sin(i * 3.1) * 3, w = 22 + (Math.sin(i * 1.3) + 1) * 5, h = 44 + (Math.sin(i * 2.1) + 1) * 20, c = x + w / 2;
+        o += `<path d="M${c} ${90 - h}L${c + w * .28} ${90 - h * .66}H${c + w * .14}L${c + w * .4} ${90 - h * .33}H${c + w * .2}L${c + w * .5} 90H${c - w * .5}L${c - w * .2} ${90 - h * .33}H${c - w * .4}L${c - w * .14} ${90 - h * .66}H${c - w * .28}Z"/>`;
+      }
+      return svg('0 0 400 90', `<g fill="${f}">${o}</g>`, '', 'preserveAspectRatio="none"');
+    },
+
+    bill: () => svg('-30 -36 60 70',
+      `<g fill="none" stroke="#1b1420" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M-13 8Q-22 9-24 0M13 8Q22 9 24-2M-7 20V30H-11M7 20V30H11"/></g>
+       <path d="M0-22L24 20H-24Z" fill="#f7d54a" stroke="#c79a1b" stroke-width="1.2" stroke-linejoin="round"/>
+       <path d="M-19 12H19M-21.5 16H21.5M-8 12V16M4 12V16M-14 16V20M-2 16V20M10 16V20" fill="none" stroke="#c79a1b" stroke-width=".7"/>
+       <g class="bill-eye"><ellipse cy="1" rx="8.5" ry="5.5" fill="#fff" stroke="#1b1420" stroke-width="1"/><ellipse cy="1" rx="1.5" ry="4.6" fill="#1b1420"/></g>
+       <path d="M-6-5L-7.5-8M-2-6L-2.5-9.5M2-6L2.5-9.5M6-5L7.5-8M-6 7L-7.5 10M-2 8L-2.5 11M2 8L2.5 11M6 7L7.5 10" stroke="#1b1420" stroke-width=".8" stroke-linecap="round"/>
+       <rect x="-4" y="-35" width="8" height="12" fill="#1b1420"/><rect x="-8" y="-24.5" width="16" height="2.6" rx="1" fill="#1b1420"/>
+       <path d="M0 13.5L-6 10V17ZM0 13.5L6 10V17Z" fill="#1b1420"/>`, 'bill-svg'),
+
+    journal: () => svg('0 0 60 76',
+      `<rect x="3" y="2" width="54" height="72" rx="4" fill="#7a2e33" stroke="#4d1a1f" stroke-width="1.5"/>
+       <rect x="3" y="2" width="7" height="72" rx="3" fill="#5c2026"/>
+       <g fill="#e3c27a"><path d="M49 2H57V10ZM57 66V74H49Z"/>
+       <rect x="22" y="36" width="20" height="20" rx="7"/>` +
+      [[-34, 20], [-17, 23.5], [0, 25], [17, 23.5], [34, 20]].map(([r, h]) => `<rect x="-2.6" y="-${h}" width="5.2" height="${h}" rx="2.6" transform="translate(32 42) rotate(${r})"/>`).join('') +
+      `<rect x="-2.6" y="-15" width="5.2" height="15" rx="2.6" transform="translate(25 48) rotate(-72)"/></g>
+       <text x="32" y="52.5" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#7a2e33">3</text>`, 'journal-svg'),
+
+    pineSym: (c = '#3f7a5c') => svg('-12 -14 24 28', `<path d="M0-13L7-3H3.5L9 5H2V12H-2V5H-9L-3.5-3H-7Z" fill="${c}"/>`),
+
+    shootStar: () => svg('-26 -12 40 24',
+      `<path d="M-24-6Q-12-4-2-1M-22 7Q-12 4-2 3" fill="none" stroke-width="2.2" stroke-linecap="round" stroke="#f29bb8"/>
+       <path d="M-25 0Q-12 0-3 1" fill="none" stroke-width="2.2" stroke-linecap="round" stroke="#8fd0e8"/>
+       <path d="M5-10L7.6-3.5L14-3L9 1.5L10.5 8L5 4.5L-.5 8L1 1.5L-4-3L2.4-3.5Z" fill="#f6c63f" stroke="#c79a1b" stroke-width=".6" stroke-linejoin="round"/>`),
+
+    question: (c = '#6b4a5e') => svg('0 0 20 28', `<text x="10" y="23" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="27" fill="${c}">?</text>`),
 
     corner: (c = C.ouro) => svg('0 0 40 40',
       `<g fill="none" stroke="${c}" stroke-width="1.2" stroke-linecap="round">
@@ -255,7 +306,7 @@ const ORNAMENTS = (() => {
   return {
     jardim: {
       top: o('o-star', D.star(C.ouroF)) + o('o-crown', D.crown()) + o('o-star', D.star(C.ouroF)),
-      bot: o('o-branch', D.branch()) + o('o-flower', D.flower(), 'data-tap="flower"') + o('o-branch flip', D.branch())
+      bot: o('o-flower sm', D.lily(), 'data-tap="flower"') + o('o-branch', D.branch()) + o('o-flower', D.sunflower(), 'data-tap="flower"') + o('o-branch flip', D.branch()) + o('o-flower sm', D.lily('#f6e6ff', '#b98fe0'), 'data-tap="flower"')
     },
     apotecaria: {
       top: o('o-branch flip', D.branch()) + o('o-vial', D.vial(C.lilas), 'data-tap="flask"') + o('o-branch', D.branch()),
@@ -275,7 +326,11 @@ const ORNAMENTS = (() => {
     },
     lanternas: {
       top: o('o-sun', D.sun(), 'data-tap="star"'),
-      bot: o('o-lantern sm', D.lantern()) + o('o-flower', D.flower(C.lilas, '#e6dcf7'), 'data-tap="flower"') + o('o-lantern', D.lantern(), 'data-tap="star"')
+      bot: o('o-lantern sm', D.lantern()) + o('o-flower', D.lily(), 'data-tap="flower"') + o('o-lantern', D.lantern(), 'data-tap="star"')
+    },
+    misterio: {
+      top: o('o-journal', D.journal(), 'data-tap="star"'),
+      bot: o('o-sym', D.pineSym()) + o('o-sym q', D.question()) + o('o-bill', D.bill(), 'data-tap="star"') + o('o-sym q', D.question()) + o('o-shoot', D.shootStar())
     },
     neve: {
       top: o('o-snow sm', D.snow('#8fa6d8')) + o('o-snow', D.snow('#7a8fcb'), 'data-tap="snow"') + o('o-snow sm', D.snow('#8fa6d8')),
@@ -292,6 +347,7 @@ const PLATES = (() => {
     constelacao: D.magic(C.tinta),
     mar: D.laurel(C.sepia) + `<i class="in">${D.heart(C.rosa)}</i>`,
     hogwarts: D.snitch(),
+    misterio: D.bill(),
     lanternas: D.sun(C.sepia),
     neve: D.snow('#8fa6d8'),
     fim: D.flower(C.rosa, C.rosaC)
