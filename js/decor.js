@@ -144,7 +144,6 @@ const DECOR = (() => {
 
     castle: (f = '#241544', w = C.ouro) => svg('0 -10 300 180',
       `<g fill="${f}">
-         <path d="M0 170Q150 112 300 170Z"/>
          <rect x="122" y="52" width="56" height="100"/><path d="M116 54L150 6L184 54Z"/>
          <rect x="84" y="82" width="28" height="70"/><path d="M79 84L98 44L117 84Z"/>
          <rect x="188" y="82" width="28" height="70"/><path d="M183 84L202 44L221 84Z"/>

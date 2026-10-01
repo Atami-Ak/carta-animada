@@ -105,7 +105,7 @@ body[data-scene=final] .moon { transform: translate(-32vw, 3vh) scale(1.25); }
 .fireflies { inset: 0; }
 .firefly { position: absolute; left: var(--x); top: var(--y); width: 5px; height: 5px; border-radius: 50%; background: radial-gradient(closest-side, #fff7c2, rgba(255, 232, 130, .7) 45%, transparent); animation: firefly var(--d) ease-in-out var(--dl) infinite; }
 @keyframes firefly { 0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: .15; } 30% { transform: translate3d(var(--ax), var(--ay), 0) scale(2.2); opacity: 1; } 60% { transform: translate3d(var(--bx), var(--by), 0) scale(1.4); opacity: .4; } 80% { opacity: .95; } }
-.castle { left: 50%; bottom: 10.5%; width: clamp(130px, 40vw, 260px); margin-left: calc(clamp(130px, 40vw, 260px) / -2); --o: .8; }
+.castle { left: 50%; bottom: calc(7.5vh - 22px); width: clamp(130px, 40vw, 260px); margin-left: calc(clamp(130px, 40vw, 260px) / -2); --o: .8; }
 .magicbg { left: 50%; top: 46%; width: min(128vw, 760px); aspect-ratio: 1; margin: calc(min(128vw, 760px) / -2) 0 0 calc(min(128vw, 760px) / -2); --o: .3; }
 .magicbg svg { animation: spin 120s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }

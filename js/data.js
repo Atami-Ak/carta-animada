@@ -77,7 +77,7 @@ const BARBIE_DATA = [
 ];
 
 /* Música opcional. Exemplo: "audio/musica.mp3". Vazio = sem botão de música. */
-const AUDIO_SRC = "";
+const AUDIO_SRC = "song/would-you-fall-in-love-with-me-again.mp3";
 
 /* Uma entrada por página. sentences = índices das frases (0 = primeira).
    scene: jardim | apotecaria | constelacao | mar
