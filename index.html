@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1d1233">
+<title>Carta para a Minha princesinha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;1,400;1,500&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-stage="closed" data-scene="capa">
+
+<div id="world">
+  <!-- camada 1: céu -->
+  <div class="layer sky" data-depth="6">
+    <div class="tint t-capa" data-in="capa"></div>
+    <div class="tint t-jardim" data-in="jardim"></div>
+    <div class="tint t-apotecaria" data-in="apotecaria"></div>
+    <div class="tint t-constelacao" data-in="constelacao"></div>
+    <div class="tint t-mar" data-in="mar"></div>
+    <div class="tint t-hogwarts" data-in="hogwarts"></div>
+    <div class="tint t-lanternas" data-in="lanternas"></div>
+    <div class="tint t-neve" data-in="neve"></div>
+    <div class="tint t-album" data-in="album"></div>
+    <div class="tint t-final" data-in="final"></div>
+    <canvas id="stars"></canvas>
+    <div class="sc cloud c1" data-in="capa jardim mar final"></div>
+    <div class="sc cloud c2" data-in="jardim mar apotecaria"></div>
+    <div class="moon" data-d="moon" data-tap="star"></div>
+    <div class="sc constel" data-in="constelacao" data-d="constel"></div>
+  </div>
+
+  <!-- camada 2: cenário -->
+  <div class="layer scenery" data-depth="14">
+    <div class="sc magicbg" data-in="constelacao" data-d="magic|#c4b1e6"></div>
+    <div class="hills" data-d="hills"></div>
+    <div class="sc castle" data-in="capa jardim hogwarts lanternas neve final" data-d="castle|#3b2869"></div>
+    <div class="sc lanterns" id="lanterns" data-in="lanternas final"></div>
+    <div class="sc candle k1" data-in="hogwarts" data-d="candle"></div>
+    <div class="sc candle k2" data-in="hogwarts" data-d="candle"></div>
+    <div class="sc candle k3" data-in="hogwarts" data-d="candle"></div>
+    <div class="sc candle k4" data-in="hogwarts" data-d="candle"></div>
+    <div class="sc candle k5" data-in="hogwarts" data-d="candle"></div>
+    <div class="sc canoe" data-in="mar" data-d="canoe"></div>
+    <div class="sc staff" data-in="constelacao" data-tap="star" data-d="staff"></div>
+    <div class="sc mortar" data-in="apotecaria" data-tap="flask" data-d="mortar"></div>
+    <div class="sc theart te" data-in="mar" data-tap="star" data-d="spiral"></div>
+    <div class="sc theart bowp" data-in="jardim album" data-tap="heart" data-d="bow"></div>
+    <div class="sc tstar s1" data-in="neve" data-tap="snow" data-d="snow"></div>
+    <div class="sc tstar s3" data-in="neve" data-tap="snow" data-d="snow"></div>
+    <div class="sc col col-l" data-in="mar" data-d="column"></div>
+    <div class="sc col col-r" data-in="mar" data-d="column"></div>
+    <div class="sc sea" data-in="mar">
+      <div class="wv" data-d="wave|#4a3476"></div>
+      <div class="wv w2" data-d="wave|#2a1a52"></div>
+    </div>
+    <div class="sc flask f1" data-in="apotecaria" data-tap="flask" data-d="flask|#eca4bd"></div>
+    <div class="sc flask f2" data-in="apotecaria" data-tap="flask" data-d="vial|#e3c27a"></div>
+    <div class="sc flask f3" data-in="apotecaria" data-tap="flask" data-d="flask|#c4b1e6"></div>
+    <div class="sc tstar s1" data-in="capa constelacao final" data-tap="star" data-d="star"></div>
+    <div class="sc tstar s2" data-in="capa constelacao mar final" data-tap="star" data-d="star|#fff6dc"></div>
+    <div class="sc tstar s3" data-in="constelacao final" data-tap="star" data-d="star"></div>
+    <div class="sc theart h1" data-in="jardim mar final" data-tap="heart" data-d="heart|#eca4bd"></div>
+    <div class="sc theart h2" data-in="jardim final" data-tap="heart" data-d="heart|#f8d3de"></div>
+  </div>
+
+  <!-- camada 3: pétalas -->
+  <div class="layer drift" data-depth="22" id="drift"></div>
+
+  <!-- camada 4: livro -->
+  <div class="layer stagewrap" data-depth="-4">
+    <div class="stage">
+      <div class="halo"></div>
+      <div class="ground"></div>
+      <div class="floaty"><div class="book" id="book"></div></div>
+    </div>
+  </div>
+
+  <!-- camada 5: primeiro plano -->
+  <div class="layer fore" data-depth="34">
+    <div class="sc garden garden-l" data-in="capa jardim lanternas album final" data-tap="flower" data-d="garden"></div>
+    <div class="sc garden garden-r" data-in="capa jardim mar lanternas album final" data-tap="flower" data-d="garden"></div>
+    <div class="sc garden garden-l" data-in="constelacao" data-tap="flower" data-d="garden|#8fb4f0|#cfe0ff|#a9c2f5|#e3ecff|#dfe9ff|#b9cdf7"></div>
+    <div class="sc garden garden-r" data-in="constelacao" data-tap="flower" data-d="garden|#8fb4f0|#cfe0ff|#a9c2f5|#e3ecff|#dfe9ff|#b9cdf7"></div>
+    <div class="sc bfly snitch" data-in="hogwarts" data-tap="bfly" data-d="snitch"></div>
+    <div class="sc garden garden-l" data-in="apotecaria" data-tap="flower" data-d="herbs"></div>
+    <div class="sc bfly" data-in="jardim album final" data-tap="bfly" data-d="butterfly"></div>
+  </div>
+</div>
+
+<p id="hint">toque no livro</p>
+
+<nav id="nav" aria-label="Páginas">
+  <button class="btn" id="prev" aria-label="Página anterior"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 4L6.5 10l6 6"/></svg></button>
+  <span id="folio"></span>
+  <button class="btn" id="next" aria-label="Próxima página"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 4l6 6-6 6"/></svg></button>
+</nav>
+
+<button class="btn" id="sound" hidden aria-label="Ligar ou desligar a música"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M8 3v9.3A3 3 0 1 0 9.5 15V6.2l6-1.4v5.5A3 3 0 1 0 17 13V2z"/></svg></button>
+
+<section id="album" aria-label="Nossas Memórias">
+  <h2>Nossas Memórias</h2>
+  <div class="sheet">
+    <span class="deco d1" data-d="flower"></span>
+    <span class="deco d2" data-d="flower|#c4b1e6|#e6dcf7"></span>
+    <span class="deco d3" data-d="branch"></span>
+    <span class="deco d4" data-d="heart|#eca4bd"></span>
+    <div class="viewport" id="viewport"><div class="track" id="track"></div></div>
+  </div>
+  <div class="album-ctl">
+    <button class="btn" id="ph-prev" aria-label="Foto anterior"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 4L6.5 10l6 6"/></svg></button>
+    <button class="btn" id="ph-auto" aria-label="Passar fotos sozinho" aria-pressed="false"><svg viewBox="0 0 20 20" fill="currentColor"><path class="ic-play" d="M7 4.5v11l9-5.5z"/><path class="ic-pause" d="M6 4.5h3v11H6zM11 4.5h3v11h-3z" hidden/></svg></button>
+    <div class="dots" id="dots"></div>
+    <button class="btn" id="ph-next" aria-label="Próxima foto"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 4l6 6-6 6"/></svg></button>
+  </div>
+</section>
+
+<div id="finale">
+  <button class="btn pill" id="again">Ler de novo</button>
+  <button class="btn pill" id="tophotos">Ver fotos</button>
+</div>
+
+<div id="lightbox" role="dialog" aria-label="Foto ampliada">
+  <img id="lb-img" alt="">
+  <span id="lb-count"></span>
+  <button class="btn" id="lb-close" aria-label="Fechar"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
+  <button class="btn" id="lb-prev" aria-label="Foto anterior"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 4L6.5 10l6 6"/></svg></button>
+  <button class="btn" id="lb-next" aria-label="Próxima foto"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 4l6 6-6 6"/></svg></button>
+</div>
+
+<div id="flash"></div>
+<div id="fx"></div>
+
+<script src="js/data.js"></script>
+<script src="js/decor.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
