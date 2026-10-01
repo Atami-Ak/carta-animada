@@ -29,7 +29,7 @@
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html, body { margin: 0; height: 100%; overflow: hidden; background: var(--noite); }
+html, body { margin: 0; height: 100%; overflow: hidden; background: var(--noite); touch-action: manipulation; -webkit-text-size-adjust: 100%; }
 body { font-family: var(--serif); color: var(--creme); -webkit-user-select: none; user-select: none; }
 svg { display: block; width: 100%; height: auto; overflow: visible; }
 button { font: inherit; color: inherit; cursor: pointer; }
@@ -463,11 +463,6 @@ body[data-stage=album] #album { opacity: 1; visibility: visible; transform: none
 #fx { position: fixed; inset: 0; z-index: 9; pointer-events: none; overflow: hidden; }
 .bit { position: absolute; width: var(--s, 14px); pointer-events: none; will-change: transform, opacity; }
 
-/* ================= MOVIMENTO REDUZIDO ================= */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; }
-  .sc, .txt, .orn-top > *, .orn-bot > *, .book, .moon, .track, .polaroid { transition-duration: .3s !important; transition-delay: 0s !important; }
-  .txt { filter: none; transform: none; }
-  .petal { display: none; }
-  .fa { left: 8vw; } .fb { left: 74vw; } .fc { left: 86vw; } .fd { left: 40vw; } .fe { left: 2vw; } .ff { left: 60vw; }
-}
+/* ================= APARELHO MODESTO ================= */
+/* Durante a virada, o cenário pausa por um instante: toda a força do aparelho vai para a folha. */
+body.lite.turning .sky *, body.lite.turning .scenery *, body.lite.turning .drift *, body.lite.turning .fore * { animation-play-state: paused !important; }

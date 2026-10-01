@@ -6,12 +6,15 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const rand = (a, b) => a + Math.random() * (b - a);
 const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// ponytail: "reduzir movimento" (ligado pela economia de bateria em muitos Androids) não desliga as animações,
+// porque elas são o presente; só ativa o modo leve. Para voltar a respeitar, troque por calm.
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reduce = false;
 const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
 const desk = matchMedia('(min-width: 900px) and (min-aspect-ratio: 1/1)');
 const D = DECOR, body = document.body, fx = $('#fx');
 /* aparelho modesto: mesmos elementos, com céu mais leve e menos partículas por rajada */
-const lite = (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 3;
+let lite = calm || (navigator.hardwareConcurrency || 8) <= 6 || (navigator.deviceMemory || 8) <= 4;
 body.classList.toggle('lite', lite);
 
 /* ============ TEXTO: divisão pelos pontos finais, sem alterar nada ============ */
@@ -104,8 +107,11 @@ function fitText() {
 }
 
 /* virada física: a folha gira em torno da lombada, com dobra, luz e sombra projetada */
+let turning = 0;
 function flip(i, dir, dur = ANIMATIONS.flip) {
   const leaf = leaves[i], fwd = dir > 0;
+  body.classList.toggle('turning', ++turning > 0);
+  leaf.style.willChange = 'transform';
   const opt = { duration: reduce ? 320 : dur, easing: ANIMATIONS.ease, direction: fwd ? 'normal' : 'reverse', fill: 'both' };
   const anims = [leaf.animate([
     { transform: tf(zR(i), 0) },
@@ -120,6 +126,8 @@ function flip(i, dir, dur = ANIMATIONS.flip) {
   return anims[0].finished.then(() => {
     leaf.style.transform = tf(fwd ? zL(i) : zR(i), fwd ? -180 : 0);
     anims.forEach(a => a.cancel());
+    leaf.style.willChange = '';
+    body.classList.toggle('turning', --turning > 0);
   });
 }
 
@@ -456,6 +464,10 @@ lb.addEventListener('pointerup', e => {
   else if (dy > 90 || e.target === lb) closeLb();
 });
 
+/* iPhone: impede o zoom de pinça e de toque duplo da página */
+['gesturestart', 'gesturechange', 'gestureend'].forEach(t => document.addEventListener(t, e => e.preventDefault(), { passive: false }));
+document.addEventListener('dblclick', e => e.preventDefault());
+
 /* ============ TECLADO ============ */
 document.addEventListener('keydown', e => {
   const stage = body.dataset.stage, right = e.key === 'ArrowRight', left = e.key === 'ArrowLeft';
@@ -632,7 +644,7 @@ if (!reduce && fine) {
   });
 }
 
-let frame = 0;
+let frame = 0, lastT = 0, slow = 0;
 function loop(t) {
   requestAnimationFrame(loop);
   if (document.hidden) return;
@@ -640,7 +652,13 @@ function loop(t) {
     px += (tx - px) * .06; py += (ty - py) * .06;
     for (const l of layers) l.el.style.transform = `translate3d(${(-px * l.d).toFixed(2)}px, ${(-py * l.d).toFixed(2)}px, 0)`;
   }
-  if (frame++ % (lite ? 3 : 2)) return;   // céu a ~30 fps (20 em aparelho modesto)
+  // mede a fluidez nos primeiros segundos; se o aparelho não acompanha, liga o modo leve
+  if (!lite && frame > 30 && frame <= 150) {
+    slow += t - lastT > 26 ? 1 : 0;
+    if (frame === 150 && slow > 45) { lite = true; body.classList.add('lite'); resizeSky(); }
+  }
+  lastT = t;
+  if (frame++ % (lite ? 3 : 2) || (lite && turning)) return;   // céu a ~30 fps (20 em aparelho modesto; parado durante a virada)
   inten += (starTarget - inten) * .04;
   drawSky(t);
 }
