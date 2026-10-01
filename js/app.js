@@ -296,6 +296,9 @@ document.addEventListener('click', e => {
     case 'flower':
       el.animate([0, 5, -4, 2, 0].map(a => ({ transform: `rotate(${a}deg)` })), { duration: 900, easing: 'ease-out' });
       burst(x, r.top + r.height * .35, 'petal', 9, 90); break;
+    case 'fairy':
+      el.querySelector('svg').animate([{ transform: 'rotate(0) scale(1)' }, { transform: 'rotate(360deg) scale(1.3)' }, { transform: 'rotate(720deg) scale(1)' }], { duration: 900, easing: 'cubic-bezier(.23,1,.32,1)' });
+      burst(x, y, 'star', 14, 110); break;
     case 'bfly':
       el.style.setProperty('--bx', rand(6, 80) + 'vw'); el.style.setProperty('--by', rand(6, 78) + 'vh'); break;
   }
@@ -333,7 +336,12 @@ $('#tophotos').addEventListener('click', showAlbum);
 /* ============ ÁLBUM ============ */
 const placeholder = n => 'data:image/svg+xml,' + encodeURIComponent(
   `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="750" viewBox="0 0 600 750"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eca4bd"/><stop offset=".55" stop-color="#c4b1e6"/><stop offset="1" stop-color="#7a5fb0"/></linearGradient></defs><rect width="600" height="750" fill="url(#g)"/><circle cx="300" cy="330" r="92" fill="none" stroke="#fff8e6" stroke-width="5" stroke-dasharray="14 12"/><text x="300" y="350" text-anchor="middle" font-family="Georgia,serif" font-size="64" fill="#fff8e6">${n}</text><text x="300" y="500" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="34" fill="#fff8e6">sua foto entra aqui</text></svg>`);
-const photos = PHOTO_DATA.length ? PHOTO_DATA : [1, 2, 3].map(n => ({ src: placeholder(n), alt: `Espaço reservado para a foto ${n}` }));
+const shuffled = list => {   // Fisher-Yates
+  const a = [...list];
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+};
+const photos = PHOTO_DATA.length ? (PHOTO_SHUFFLE ? shuffled(PHOTO_DATA) : PHOTO_DATA) : [1, 2, 3].map(n => ({ src: placeholder(n), alt: `Espaço reservado para a foto ${n}` }));
 const P = photos.length;
 const track = $('#track'), viewport = $('#viewport'), dots = $('#dots');
 let pi = 0, autoTimer = 0;
@@ -477,6 +485,17 @@ for (let k = 0, n = reduce ? 3 : 9; k < n; k++) {
   el.innerHTML = D.lantern();
   lanterns.append(el);
 }
+
+/* pó de fada: rastro de brilhos atrás de cada fada */
+const fairies = $$('.fairy');
+if (!reduce && fairies.length) setInterval(() => {
+  if (document.hidden) return;
+  const r = fairies[Math.floor(Math.random() * fairies.length)].getBoundingClientRect();
+  if (r.right < 0 || r.left > innerWidth) return;
+  const el = bit('star', rand(4, 9));
+  el.style.left = r.left + r.width / 2 + rand(-8, 8) + 'px'; el.style.top = r.top + r.height * .7 + 'px';
+  el.animate([{ transform: 'translate(-50%,-50%) scale(1)', opacity: .95 }, { transform: `translate(calc(-50% + ${rand(-10, 10)}px), calc(-50% + ${rand(24, 46)}px)) scale(.4)`, opacity: 0 }], { duration: rand(900, 1500), easing: 'ease-out' }).onfinish = () => el.remove();
+}, lite ? 420 : 180);
 
 /* ============ CÉU: estrelas, poeira dourada, meteoros ============ */
 const cv = $('#stars'), cx = cv.getContext('2d');

@@ -221,6 +221,26 @@ const DECOR = (() => {
        <rect x="20" y="45" width="20" height="4" rx="2" fill="#a8947b"/>
        <g fill="${C.folha}"><circle cx="20" cy="14" r="3"/><circle cx="27" cy="12" r="3.4"/><circle cx="15" cy="13" r="2.2"/></g>`, 'mortar-svg'),
 
+    /* fada: vestido de folha, coque (ou cachos), asas translúcidas, sapatilha com pompom */
+    fairy: (dress = '#7cc576', hair = '#f4d675', curly = '') => {
+      const wing = `<g class="wing"><path d="M0 0C-6-20-24-24-22-8C-21-1-10 1 0 0Z" fill="rgba(235,245,255,.6)" stroke="#fff6dc" stroke-width=".6"/>
+        <path d="M0 0C-10 2-18 10-12 16C-7 19-2 9 0 0Z" fill="rgba(235,245,255,.45)" stroke="#fff6dc" stroke-width=".5"/></g>`;
+      const hairTop = curly
+        ? [[-6, -8], [-7, -3], [-6.5, 2], [6, -8], [7, -3], [6.5, 2], [-3, -11], [3, -11], [0, -12]].map(([x, y]) => `<circle cx="${x}" cy="${y - 5}" r="3.1" fill="${hair}"/>`).join('')
+        : `<circle cy="-17.5" r="3.2" fill="${hair}"/><path d="M-6.5-5C-7-13 7-13 6.5-5C4-9 1-9.5-6.5-5Z" fill="${hair}"/>`;
+      return svg('-26 -26 52 58',
+        `<g transform="translate(0 3)">${wing}<g transform="scale(-1 1)">${wing}</g></g>
+         <g stroke="#f3c9a8" stroke-width="2" stroke-linecap="round"><path d="M-2 17L-3 26M2 17L3.5 25M-5 5L-10 11M5 5L11 0"/></g>
+         <path d="M-5 2C-6 8-9 14-8 18L-4 15L-1 19L2 15L5 19L8 17C9 13 6 8 5 2Z" fill="${dress}"/>
+         <ellipse cx="-3.5" cy="27" rx="2.6" ry="1.5" fill="${dress}"/><ellipse cx="4" cy="26" rx="2.6" ry="1.5" fill="${dress}"/>
+         <circle cx="-4.5" cy="26" r="1.3" fill="#fff"/><circle cx="3" cy="25" r="1.3" fill="#fff"/>
+         ${curly ? hairTop : ''}<circle cy="-5" r="6" fill="#f8d8bd"/>${curly ? '' : hairTop}
+         <circle cx="-2.2" cy="-5" r=".8" fill="#4a3040"/><circle cx="2.2" cy="-5" r=".8" fill="#4a3040"/>
+         <path d="M-1.6-2.300Q0-1 1.6-2.3" fill="none" stroke="#c7607a" stroke-width=".7" stroke-linecap="round"/>
+         <circle cx="-3.8" cy="-3.2" r="1.1" fill="#f6a9b8" opacity=".6"/><circle cx="3.8" cy="-3.2" r="1.1" fill="#f6a9b8" opacity=".6"/>
+         <path d="${STAR}" fill="#fff3c4" transform="translate(12.5 -2) scale(.28)"/>`, 'fairy-svg');
+    },
+
     corner: (c = C.ouro) => svg('0 0 40 40',
       `<g fill="none" stroke="${c}" stroke-width="1.2" stroke-linecap="round">
          <path d="M2 38V14C2 7 7 2 14 2H38"/><path d="M8 30C8 16 16 8 30 8"/>

@@ -10,7 +10,31 @@ const LETTER_DATA = {
 
 /* Fotos, na ordem em que devem aparecer. Coloque os arquivos na pasta "fotos".
    Exemplo: { src: "fotos/01.jpg", alt: "nós dois na praia" } */
-const PHOTO_DATA = [];
+const PHOTO_DATA = [
+  { src: "fotos/festa-mario.jpg", alt: "" },
+  { src: "fotos/filtro-cachorrinho.jpg", alt: "" },
+  { src: "fotos/image-1790818441433.jpg", alt: "" },
+  { src: "fotos/image-1790818463666.jpg", alt: "" },
+  { src: "fotos/image-1790818466010.jpg", alt: "" },
+  { src: "fotos/image-1790818477501.jpg", alt: "" },
+  { src: "fotos/image-1790818479981.jpg", alt: "" },
+  { src: "fotos/image-1790818482884.jpg", alt: "" },
+  { src: "fotos/image-1790818484995.jpg", alt: "" },
+  { src: "fotos/image-1790818488255.jpg", alt: "" },
+  { src: "fotos/image-1790818492137.jpg", alt: "" },
+  { src: "fotos/image-1790818493961.jpg", alt: "" },
+  { src: "fotos/image-1790818500423.jpg", alt: "" },
+  { src: "fotos/image-1790818503641.jpg", alt: "" },
+  { src: "fotos/image-1790818507218.jpg", alt: "" },
+  { src: "fotos/image-1790818508974.jpg", alt: "" },
+  { src: "fotos/image-1790818512217.jpg", alt: "" },
+  { src: "fotos/image-1790818514446.jpg", alt: "" },
+  { src: "fotos/image-1790818516286.jpg", alt: "" },
+  { src: "fotos/pascoa.jpg", alt: "" }
+];
+
+/* true = embaralha as fotos a cada abertura; false = segue a ordem da lista acima. */
+const PHOTO_SHUFFLE = true;
 
 /* Música opcional. Exemplo: "audio/musica.mp3". Vazio = sem botão de música. */
 const AUDIO_SRC = "";

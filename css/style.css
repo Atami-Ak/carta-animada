@@ -170,6 +170,26 @@ body[data-scene=neve] .petal.flake { opacity: .9; }
 .wing { animation: flap .42s ease-in-out infinite alternate; }
 @keyframes flap { to { transform: scaleX(.3); } }
 
+/* fadas: voam pelas margens, nunca sobre o texto */
+.fairy { position: absolute; width: clamp(34px, 10vw, 54px); pointer-events: auto; cursor: pointer;
+  background: radial-gradient(closest-side, rgba(255, 240, 180, .5), transparent 72%); animation: var(--path) var(--d) ease-in-out var(--dl, 0s) infinite; }
+.fairy i { display: block; animation: face var(--d) steps(1) var(--dl, 0s) infinite; }
+.fairy svg { animation: bob 2.6s ease-in-out infinite; }
+.fairy .wing { animation-duration: .16s; }
+.fa { top: 8vh; left: 0; --path: fly-a; --d: 26s; }
+.fb { top: 80vh; left: 0; --path: fly-b; --d: 34s; --dl: -9s; }
+.fc { top: 20vh; left: 0; --path: fly-c; --d: 19s; --dl: -4s; width: clamp(26px, 7.5vw, 42px); }
+.fd { top: 14vh; left: 0; --path: fly-d; --d: 41s; --dl: -20s; width: clamp(28px, 8vw, 44px); }
+.fe { top: 86vh; left: 0; --path: fly-e; --d: 30s; --dl: -15s; width: clamp(24px, 7vw, 38px); }
+@keyframes face { 0% { transform: scaleX(1); } 50% { transform: scaleX(-1); } }
+@keyframes fly-a { 0%, 100% { transform: translate3d(-14vw, 0, 0); } 22% { transform: translate3d(40vw, 5vh, 0); } 50% { transform: translate3d(104vw, -2vh, 0); } 76% { transform: translate3d(48vw, 6vh, 0); } }
+@keyframes fly-b { 0%, 100% { transform: translate3d(-14vw, 0, 0); } 25% { transform: translate3d(30vw, -4vh, 0); } 50% { transform: translate3d(104vw, 3vh, 0); } 75% { transform: translate3d(60vw, -5vh, 0); } }
+@keyframes fly-c { 0%, 100% { transform: translate3d(91vw, 0, 0); } 25% { transform: translate3d(93vw, 26vh, 0); } 50% { transform: translate3d(92vw, 52vh, 0); } 75% { transform: translate3d(93vw, 20vh, 0); } }
+@keyframes fly-d { 0%, 100% { transform: translate3d(104vw, 0, 0); } 30% { transform: translate3d(55vw, -8vh, 0); } 50% { transform: translate3d(-14vw, -3vh, 0); } 80% { transform: translate3d(50vw, -9vh, 0); } }
+@keyframes fly-e { 0%, 100% { transform: translate3d(-2vw, 0, 0); } 25% { transform: translate3d(-1vw, -30vh, 0); } 50% { transform: translate3d(0, -62vh, 0); } 75% { transform: translate3d(-1vw, -28vh, 0); } }
+.fd i { animation-name: face-r; }
+@keyframes face-r { 0% { transform: scaleX(-1); } 50% { transform: scaleX(1); } }
+
 /* ================= LIVRO 3D ================= */
 .stage { position: absolute; inset: 0; perspective: 1800px; perspective-origin: 50% 42%;
   transition: opacity .9s ease, transform 1.2s var(--ease-io); }
@@ -385,4 +405,5 @@ body[data-stage=album] #album { opacity: 1; visibility: visible; transform: none
   .sc, .txt, .orn-top > *, .orn-bot > *, .book, .moon, .track, .polaroid { transition-duration: .3s !important; transition-delay: 0s !important; }
   .txt { filter: none; transform: none; }
   .petal { display: none; }
+  .fa { left: 8vw; } .fb { left: 74vw; } .fc { left: 86vw; } .fd { left: 40vw; } .fe { left: 2vw; }
 }
