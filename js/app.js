@@ -40,7 +40,7 @@ const N = pages.length;
 $$('[data-d]').forEach(el => { const [name, ...args] = el.dataset.d.split('|'); el.innerHTML = D[name](...args); });
 
 /* ============ CENAS ============ */
-const STAR_LEVEL = { capa: 1, jardim: .5, apotecaria: .7, constelacao: 1.4, mar: 1, hogwarts: 1.2, misterio: 1.1, lanternas: .8, neve: .9, album: .6, final: 1.4 };
+const STAR_LEVEL = { capa: 1, jardim: .5, apotecaria: .7, constelacao: 1.4, mar: 1, hogwarts: 1.2, barbie: .7, misterio: 1.1, lanternas: .8, neve: .9, album: .6, final: 1.4 };
 let starTarget = 1;
 function setScene(name) {
   body.dataset.scene = name;
@@ -73,7 +73,7 @@ const pageFront = (p, i) => {
     : p.sentences.map(s => `<p>${esc(pageText(p, s))}</p>`).join('');
   return `<div class="gutter"></div><div class="rule">${corners(C.sepia)}</div>
     <div class="page-in lay-${layout}${p.img ? ' has-pic' : ''}${!p.quote && p.sentences.reduce((n, i) => n + pageText(p, i).length, 0) > 380 ? ' long' : ''}${p.part ? ' cont' : ''}"><div class="orn-top">${p.img
-      ? `<span class="pic" data-tap="star"><i class="tape"></i><img src="${esc(p.img)}" alt="" style="object-position:${esc(p.pos || '50% 50%')}" decoding="async" draggable="false"></span>` : orn.top}</div>
+      ? `<span class="pic${p.alta ? ' alta' : ''}" data-tap="star"><i class="tape"></i><img src="${esc(p.img)}" alt="" style="object-position:${esc(p.pos || '50% 50%')}" decoding="async" draggable="false"></span>` : orn.top}</div>
     <div class="txt" data-max="${layout === 'livro' ? 21.5 : layout === 'centro' ? 24 : p.img ? 21 : 25}"><div>${text}</div></div>
     <div class="orn-bot">${orn.bot}</div></div><span class="folio">${roman(i + 1)}</span>`;
 };
@@ -302,6 +302,9 @@ document.addEventListener('click', e => {
     case 'bill':
       el.animate([0, 360].map(a => ({ transform: `rotate(${a}deg)` })), { duration: 900, easing: 'cubic-bezier(.23,1,.32,1)' });
       burst(x, y, 'star', 14, 120); flash(.18); break;
+    case 'charm':
+      el.animate([0, 26, -20, 13, -7, 0].map(a => ({ transform: `rotate(${a}deg)` })), { duration: 1100, easing: 'ease-out' });
+      burst(x, y, Math.random() < .5 ? 'heart' : 'star', 8, 70); break;
     case 'bfly':
       el.style.setProperty('--bx', rand(6, 80) + 'vw'); el.style.setProperty('--by', rand(6, 78) + 'vh'); break;
   }
@@ -516,6 +519,26 @@ if (!reduce && fairies.length) setInterval(() => {
     { duration: loop ? 850 : 1100, easing: 'cubic-bezier(.45,.05,.3,1)' });
   burst(r.left + r.width / 2, r.top + r.height / 2, 'star', 7, 60);
 }, 3400);
+
+/* guirlanda de pingentes no alto da cena */
+const garland = $('#garland'), CHARMS = ['heel', 'lipstick', 'tiara', 'locket', 'mirror', 'bag', 'perfume'];
+garland.innerHTML = '<svg class="chain" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 4Q200 76 400 4" fill="none" stroke="#e3c27a" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="1 6" vector-effect="non-scaling-stroke"/></svg>' +
+  CHARMS.map((k, i) => {
+    const t = .1 + i * .8 / (CHARMS.length - 1), y = ((1 - t) ** 2 * 4 + 2 * (1 - t) * t * 76 + t * t * 4) / 60 * 60;   // curva da corrente, em % da altura dela
+    return `<span class="charm" data-tap="charm" style="--x:${(t * 100).toFixed(1)}%;--y:calc(${(y * .17 * .6).toFixed(2)}vh - 3px);--w:${i === 3 ? 34 : 27}px;--d:${(3.2 + (i * 37 % 10) / 6).toFixed(2)}s;--dl:${(-i * .7).toFixed(1)}s">${D.charm(k)}</span>`;
+  }).join('');
+
+/* capas dos filmes da Barbie subindo devagar pelas margens */
+const coversBox = $('#covers');
+BARBIE_DATA.forEach((src, k) => {
+  const el = document.createElement('i');
+  el.className = 'cover-card';
+  const x = k % 3 === 0 ? rand(20, 70) : k % 2 ? rand(-2, 10) : rand(78, 90), d = rand(26, 38);
+  el.style.cssText = `--x:${x}%;--s:${rand(44, 64)}px;--d:${d}s;--dl:${-(k / BARBIE_DATA.length) * d - rand(0, 4)}s;--dx:${rand(-6, 6)}vw;--r:${rand(-9, 9)}deg`;
+  el.innerHTML = `<img src="${esc(src)}" alt="" loading="lazy" decoding="async" draggable="false">`;
+  el.firstChild.onerror = () => el.remove();   // capa que não carregar some, em vez de virar moldura vazia
+  coversBox.append(el);
+});
 
 /* vaga-lumes */
 const ffBox = $('#fireflies');

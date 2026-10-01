@@ -292,6 +292,71 @@ const DECOR = (() => {
 
     question: (c = '#6b4a5e') => svg('0 0 20 28', `<text x="10" y="23" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="27" fill="${c}">?</text>`),
 
+    /* ---- Barbie: diamante, sapatilha, cisne, chave, concha ---- */
+    diamond: (c = '#ff8fc7') => svg('0 0 30 26',
+      `<path d="M6 2H24L29 9L15 25L1 9Z" fill="${c}"/><path d="M6 2L10 9L15 2L20 9L24 2M1 9H29M10 9L15 25L20 9" fill="none" stroke="#fff" stroke-width=".8" opacity=".75" stroke-linejoin="round"/>
+       <path d="M7 4L10 8H4Z" fill="#fff" opacity=".5"/>`, 'diamond'),
+
+    slipper: (c = '#ff9ccb') => svg('0 0 40 26',
+      `<path d="M2 16C6 8 16 8 22 12C28 15 36 15 38 18C38 22 30 23 22 23C12 23 2 22 2 16Z" fill="${c}"/>
+       <path d="M8 14C12 11 18 12 22 15" fill="none" stroke="#fff" stroke-width="1" opacity=".7" stroke-linecap="round"/>
+       <path d="M12 11C7 3 15 0 17 7M17 9C20 2 27 4 22 11" fill="none" stroke="${c}" stroke-width="1.6" stroke-linecap="round"/>`, 'slipper'),
+
+    swan: () => svg('0 0 42 38',
+      `<path d="M8 30C4 24 10 18 20 20C28 21 36 16 38 24C38 32 27 35 16 35C12 35 9 33 8 30Z" fill="#fff"/>
+       <path d="M22 22C28 20 34 20 37 24" fill="none" stroke="#e6dcf7" stroke-width="1.2" stroke-linecap="round"/>
+       <path d="M12 26C5 20 5 9 11 7C15 6 17 10 14 12C11 13 11 19 15 23" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/>
+       <path d="M15 9L20 10.5L15 12Z" fill="#f2a81d"/><circle cx="12" cy="8.5" r=".8" fill="#3b2440"/>
+       <path d="M8 4L9.5 1L11 3.5L12.5 1L14 4Z" fill="${C.ouro}"/>`, 'swan'),
+
+    key: (c = C.ouro) => svg('0 0 18 38',
+      `<g fill="none" stroke="${c}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14C3 9 2 3 6 2C8 2 9 4 9 5C9 4 10 2 12 2C16 3 15 9 9 14Z"/><path d="M9 14V36M9 30H14M9 25H13"/></g>`, 'key'),
+
+    shell: () => svg('0 0 34 28',
+      `<path d="M17 26C6 26 1 18 2 10C5 4 11 2 17 2C23 2 29 4 32 10C33 18 28 26 17 26Z" fill="#ffc1dd"/>
+       <path d="M17 25L5 9M17 25L11 4M17 25V2M17 25L23 4M17 25L29 9" fill="none" stroke="#f08fbb" stroke-width="1" stroke-linecap="round"/>
+       <circle cx="17" cy="19" r="4" fill="#fff"/><circle cx="15.8" cy="17.8" r="1.2" fill="#ffe9f3"/>`, 'shell'),
+
+    /* ---- pingentes: objetos dos filmes e do mundo da Barbie, cada um com sua argola ---- */
+    charm: (kind = 'locket') => {
+      const P = '#ff7ab8', P2 = '#ffc1dd', G = C.ouro, G2 = C.ouroF, L = '#c9a8ff';
+      const body = {
+        locket: `<path d="M15 37C9 31 2 27 2 20C2 14 10 12 15 19C20 12 28 14 28 20C28 27 21 31 15 37Z" fill="${P}" stroke="${G}" stroke-width="1.4"/>
+          <path d="M7 19C7 16 10 15 12 17" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity=".8"/>
+          <circle cx="15" cy="24" r="2" fill="${G2}"/><path d="M14 25H16L16.6 30H13.4Z" fill="${G2}"/>`,
+        tiara: `<path d="M3 34L1 17L9 25L15 10L21 25L29 17L27 34Z" fill="${G}" stroke="${G2}" stroke-width=".8" stroke-linejoin="round"/>
+          <rect x="3" y="33" width="24" height="4" rx="2" fill="${G2}"/>
+          <g fill="${P}"><circle cx="15" cy="11" r="2.6"/><circle cx="1.5" cy="17" r="2"/><circle cx="28.5" cy="17" r="2"/><circle cx="15" cy="27" r="2.2"/></g>`,
+        heel: `<path d="M3 15C9 16 14 22 20 26C24 28 28 29 28 33H17C13 28 8 26 3 25Z" fill="${P}"/>
+          <path d="M3 24L3.5 38H6.5L8.5 27Z" fill="#e0559a"/><path d="M5 17C9 19 13 23 17 26" fill="none" stroke="#fff" stroke-width="1" opacity=".6" stroke-linecap="round"/>
+          <circle cx="24" cy="30.5" r="1.6" fill="${G}"/>`,
+        lipstick: `<rect x="10" y="26" width="10" height="13" rx="1.5" fill="${G}"/><rect x="11" y="20" width="8" height="6" fill="${G2}"/>
+          <path d="M12 20V13L18 10V20Z" fill="${P}"/><path d="M13.5 19V14" stroke="#fff" stroke-width="1" opacity=".6" stroke-linecap="round"/>`,
+        bag: `<path d="M9 21C9 10 21 10 21 21" fill="none" stroke="${G2}" stroke-width="2" stroke-linecap="round"/>
+          <rect x="4" y="20" width="22" height="17" rx="4" fill="${P}"/><path d="M4 24C10 30 20 30 26 24V22C26 21 25 20 24 20H6C5 20 4 21 4 22Z" fill="#ff9ccb"/>
+          <circle cx="15" cy="28" r="2.2" fill="${G}"/>`,
+        mirror: `<rect x="13" y="27" width="4" height="12" rx="2" fill="${G2}"/><circle cx="15" cy="19" r="10" fill="${G}"/><circle cx="15" cy="19" r="7.4" fill="#d8f0ff"/>
+          <path d="M10.5 16C11.5 13.5 14 12.5 16 13" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>`,
+        perfume: `<rect x="12" y="10" width="6" height="5" rx="1" fill="${G}"/><rect x="13" y="15" width="4" height="4" fill="${G2}"/>
+          <rect x="6" y="19" width="18" height="19" rx="5" fill="${L}" opacity=".9"/><rect x="8" y="28" width="14" height="8" rx="3" fill="${P}" opacity=".8"/>
+          <path d="M9.5 23V27" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity=".8"/>`,
+        wings: `<path d="M15 24C9 10 0 12 2 20C3 25 10 26 15 24Z" fill="${P}"/><path d="M15 24C21 10 30 12 28 20C27 25 20 26 15 24Z" fill="${P}"/>
+          <path d="M15 24C8 26 5 33 9 36C12 38 14 30 15 24Z" fill="${L}"/><path d="M15 24C22 26 25 33 21 36C18 38 16 30 15 24Z" fill="${L}"/>
+          <circle cx="7" cy="18" r="1.6" fill="#fff" opacity=".8"/><circle cx="23" cy="18" r="1.6" fill="#fff" opacity=".8"/><ellipse cx="15" cy="25" rx="1.2" ry="6" fill="${G2}"/>`,
+        tail: `<path d="M15 9C23 15 21 26 15 30C9 26 7 15 15 9Z" fill="#6fd0cb"/><path d="M11 16Q15 19 19 16M10.5 21Q15 24 19.5 21" fill="none" stroke="#fff" stroke-width=".9" opacity=".7"/>
+          <path d="M15 29C8 29 5 35 4 39C10 39 14 36 15 33C16 36 20 39 26 39C25 35 22 29 15 29Z" fill="${P}"/>`,
+        mic: `<path d="M12 20L13.6 39H16.4L18 20Z" fill="#8a5fd0"/><rect x="11.5" y="19" width="7" height="3" rx="1.5" fill="${G}"/>
+          <circle cx="15" cy="14" r="6.5" fill="${P}"/><g fill="#fff" opacity=".85"><circle cx="13" cy="12" r=".9"/><circle cx="17" cy="13" r=".8"/><circle cx="14.5" cy="16" r=".8"/><circle cx="17.5" cy="16.5" r=".6"/></g>`,
+        wand: `<path d="M15 20V39" stroke="${P}" stroke-width="2.4" stroke-linecap="round"/><path d="M15 26C10 28 9 32 11 34M15 26C20 28 21 32 19 34" fill="none" stroke="${L}" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M15 8L17.6 14.2L24.2 14.8L19.2 19.2L20.7 25.6L15 22.2L9.3 25.6L10.8 19.2L5.8 14.8L12.4 14.2Z" fill="${G}" stroke="${G2}" stroke-width=".7" stroke-linejoin="round"/>`,
+        hearts: `<path d="M9.5 30C6 26.500 2 24 2 20C2 16.500 6.500 15.500 9.500 19.500C12.500 15.500 17 16.500 17 20C17 24 13 26.500 9.500 30Z" fill="${L}" stroke="${G}" stroke-width="1"/>
+          <path d="M20.5 36C17 32.500 13 30 13 26C13 22.500 17.500 21.500 20.500 25.500C23.500 21.500 28 22.500 28 26C28 30 24 32.500 20.500 36Z" fill="${P}" stroke="${G}" stroke-width="1"/>`.replace(/\.500/g, '.5'),
+        brush: `<rect x="13" y="20" width="4" height="19" rx="2" fill="#a8743f"/><rect x="12" y="16" width="6" height="5" fill="${G}"/>
+          <path d="M12 16C11 12 13 9 15 7C17 9 19 12 18 16Z" fill="${P}"/><path d="M22 9L23 11.500L25.500 12L23 12.800L22 15L21.200 12.800L18.800 12L21.200 11.500Z" fill="${G}"/>`.replace(/\.(\d)00/g, '.$1')
+      }[kind];
+      return svg('0 0 30 40', `<circle cx="15" cy="4" r="3" fill="none" stroke="${G}" stroke-width="1.5"/><path d="M15 7V10" stroke="${G}" stroke-width="1.3"/>${body}`, 'charm-svg');
+    },
+
     corner: (c = C.ouro) => svg('0 0 40 40',
       `<g fill="none" stroke="${c}" stroke-width="1.2" stroke-linecap="round">
          <path d="M2 38V14C2 7 7 2 14 2H38"/><path d="M8 30C8 16 16 8 30 8"/>
@@ -332,6 +397,10 @@ const ORNAMENTS = (() => {
       top: o('o-journal', D.journal(), 'data-tap="star"'),
       bot: o('o-sym', D.pineSym()) + o('o-sym q', D.question()) + o('o-bill', D.bill(), 'data-tap="star"') + o('o-sym q', D.question()) + o('o-shoot', D.shootStar())
     },
+    barbie: {
+      top: o('o-charm', D.charm('tiara'), 'data-tap="charm"') + o('o-bow', D.bow(), 'data-tap="heart"') + o('o-charm', D.charm('locket'), 'data-tap="charm"'),
+      bot: o('o-slip', D.slipper()) + o('o-dia', D.diamond(), 'data-tap="star"') + o('o-shell', D.shell(), 'data-tap="star"')
+    },
     neve: {
       top: o('o-snow sm', D.snow('#8fa6d8')) + o('o-snow', D.snow('#7a8fcb'), 'data-tap="snow"') + o('o-snow sm', D.snow('#8fa6d8')),
       bot: o('o-snow sm', D.snow('#8fa6d8')) + o('o-heart', D.heart(), 'data-tap="heart"') + o('o-snow sm', D.snow('#8fa6d8'))
@@ -347,6 +416,7 @@ const PLATES = (() => {
     constelacao: D.magic(C.tinta),
     mar: D.laurel(C.sepia) + `<i class="in">${D.heart(C.rosa)}</i>`,
     hogwarts: D.snitch(),
+    barbie: D.bow('#f29bb8'),
     misterio: D.bill(),
     lanternas: D.sun(C.sepia),
     neve: D.snow('#8fa6d8'),

@@ -48,6 +48,34 @@ const FAIRY_DATA = [
   { corpo: "img/fada-fawn.png", olha: "direita" }
 ];
 
+/* Capas dos filmes da Barbie (2001 a 2016), em ordem de lançamento. Flutuam na cena "barbie". */
+const BARBIE_DATA = [
+  "img/barbie/01-quebra-nozes.jpg",
+  "img/barbie/02-rapunzel.jpg",
+  "img/barbie/03-lago-dos-cisnes.jpg",
+  "img/barbie/04-princesa-e-plebeia.jpg",
+  "img/barbie/05-fairytopia.jpg",
+  "img/barbie/06-pegaso.jpg",
+  "img/barbie/07-mermaidia.png",
+  "img/barbie/08-diario.jpg",
+  "img/barbie/09-12-princesas.jpg",
+  "img/barbie/10-arco-iris.jpg",
+  "img/barbie/11-princesa-da-ilha.jpg",
+  "img/barbie/12-mariposa.png",
+  "img/barbie/13-castelo-de-diamante.jpg",
+  "img/barbie/14-cancao-de-natal.jpg",
+  "img/barbie/15-polegarzinha.jpg",
+  "img/barbie/16-tres-mosqueteiras.jpg",
+  "img/barbie/17-vida-de-sereia.jpg",
+  "img/barbie/18-moda-e-magia.jpg",
+  "img/barbie/19-segredo-das-fadas.jpg",
+  "img/barbie/20-escola-de-princesas.jpg",
+  "img/barbie/21-vida-de-sereia-2.jpg",
+  "img/barbie/22-princesa-e-pop-star.png",
+  "img/barbie/23-portal-secreto.png",
+  "img/barbie/24-aventura-nas-estrelas.jpg"
+];
+
 /* Música opcional. Exemplo: "audio/musica.mp3". Vazio = sem botão de música. */
 const AUDIO_SRC = "";
 
@@ -77,17 +105,21 @@ const PAGE_CONFIG = [
   { quote: ["O senhor é apenas humano, mestre Jinshi. Não é um imortal das lendas, capaz de salvar todo mundo."], by: "Maomao, Diários de uma Apotecária", scene: "apotecaria",
     img: "img/apotecaria-banner.jpg", pos: "50% 50%", avatar: "img/maomao.png" },
   { quote: ["— Você era o meu novo sonho.", "— E você era o meu."], by: "Flynn e Rapunzel, Enrolados", scene: "lanternas" },
+  { quote: ["O amor e a imaginação podem mudar o mundo."], by: "Barbie como Rapunzel", scene: "barbie",
+    img: "img/barbie/02-rapunzel.jpg", alta: true, pos: "50% 30%" },
   { sentences: [4], part: 0, scene: "jardim",      layout: "centro" },
   { sentences: [4], part: 1, scene: "misterio",    layout: "livro" },
   { quote: ["Frieren levará nossas memórias para o futuro."], by: "Himmel, Frieren e a Jornada para o Além", scene: "constelacao",
     img: "img/frieren-capa.jpg", pos: "50% 42%", avatar: "img/himmel.png" },
   { sentences: [4], part: 2, scene: "mar",         layout: "centro" },
+  { quote: ["Há uma diferença que só você pode fazer."], by: "Barbie em As 12 Princesas Bailarinas", scene: "barbie",
+    img: "img/barbie/09-12-princesas.jpg", alta: true, pos: "50% 30%" },
   { quote: ["Há pessoas pelas quais vale a pena derreter."], by: "Olaf, Frozen", scene: "neve" },
   { sentences: [4], part: 3, scene: "lanternas",   layout: "centro", surprise: true }
 ];
 /* img = ilustração colada no alto da página; pos = ponto de corte; avatar = medalhão ao lado do nome. */
 /* Páginas com "quote" são citações de personagens (não fazem parte da carta).
-   Para tirar uma, apague a linha. Cenas extras: hogwarts | lanternas | neve | misterio */
+   Para tirar uma, apague a linha. Cenas extras: hogwarts | lanternas | neve | misterio | barbie */
 
 /* Tempos em milissegundos. */
 const ANIMATIONS = {

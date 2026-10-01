@@ -51,6 +51,7 @@ button:focus-visible { outline: 2px solid var(--ouro); outline-offset: 3px; }
 .t-lanternas { background: radial-gradient(80% 50% at 50% 76%, rgba(240, 170, 90, .5), transparent 70%), linear-gradient(180deg, #1d1245, #4a2f78 55%, #8a4f86); }
 .t-neve { background: radial-gradient(70% 45% at 50% 20%, rgba(190, 215, 255, .36), transparent 70%), linear-gradient(180deg, #1b1a4a, #4a4a94 55%, #a9b4e6); }
 .t-misterio { background: radial-gradient(60% 40% at 50% 30%, rgba(247, 213, 74, .22), transparent 70%), linear-gradient(180deg, #10142e, #1f2c52 50%, #2f5560 86%, #1c3340); }
+.t-barbie { background: radial-gradient(70% 45% at 50% 30%, rgba(255, 255, 255, .2), transparent 70%), linear-gradient(180deg, #3a1a5e, #8a3a8f 45%, #ff8fc7 86%, #ffc1dd); }
 .t-album { background: radial-gradient(80% 60% at 50% 30%, #7d4a78, #3a2050 60%, #1f1236); }
 .t-final { background: radial-gradient(70% 45% at 50% 60%, rgba(227, 194, 122, .38), transparent 70%), linear-gradient(180deg, #120a28, #2c1b55 60%, #4a2f6e); }
 
@@ -159,6 +160,25 @@ body[data-scene=final] .moon { transform: translate(-32vw, 3vh) scale(1.25); }
 .flame { transform-origin: 7px 15px; animation: flicker .9s ease-in-out infinite alternate; }
 @keyframes flicker { from { transform: scale(1, 1); } to { transform: scale(.82, 1.14) skewX(5deg); } }
 
+/* guirlanda de pingentes: corrente no alto, cada pingente balança no seu ritmo */
+.garland { top: 0; left: 0; right: 0; height: 17vh; }
+.garland .chain { position: absolute; left: 0; top: 0; width: 100%; height: 60%; }
+.charm { position: absolute; left: var(--x); top: var(--y); width: var(--w, 28px); margin-left: calc(var(--w, 28px) / -2); transform-origin: 50% 0; pointer-events: auto; cursor: pointer;
+  animation: swing var(--d, 4s) ease-in-out var(--dl, 0s) infinite alternate; }
+@keyframes swing { from { transform: rotate(-8deg); } to { transform: rotate(8deg); } }
+.cx { width: clamp(20px, 6vw, 30px); transform-origin: 50% 0; background: radial-gradient(closest-side, rgba(255, 220, 240, .5), transparent 74%); }
+.cx svg { transform-origin: 50% 0; animation: swing 4s ease-in-out infinite alternate; }
+.c1 { top: 26%; right: 1.5%; } .c2 { top: 46%; right: 1%; } .c3 { top: 64%; right: 2%; }
+.c4 { top: 30%; left: 1%; } .c5 { top: 52%; left: 1.5%; } .c6 { top: 70%; left: 1%; }
+.c2 svg { animation-duration: 5s; animation-delay: -2s; } .c3 svg { animation-duration: 3.4s; } .c5 svg { animation-duration: 4.6s; animation-delay: -1s; } .c6 svg { animation-duration: 5.4s; }
+.covers { inset: 0; }
+.cover-card { position: absolute; bottom: -22%; left: var(--x); width: var(--s); animation: lrise var(--d) linear var(--dl) infinite; }
+.cover-card img { display: block; width: 100%; border: 3px solid #fffdf8; border-radius: 3px; box-shadow: 0 6px 14px rgba(40, 10, 50, .4); transform: rotate(var(--r)); animation: sway 6s ease-in-out infinite; }
+.bx svg { animation: bob 6s ease-in-out infinite; }
+.bx { background: radial-gradient(closest-side, rgba(255, 220, 240, .45), transparent 72%); }
+.b1 { top: 6%; left: 10%; width: 30px; } .b2 { top: 15%; left: 30%; width: 20px; } .b3 { top: 5%; left: 52%; width: 40px; }
+.b4 { bottom: 12%; right: 6%; width: 44px; } .b5 { bottom: 19%; left: 5%; width: 16px; }
+.b2 svg { animation-delay: -2s; } .b3 svg { animation-delay: -3.5s; animation-duration: 7s; } .b4 svg { animation-duration: 8s; } .b5 svg { animation-delay: -1s; }
 .lanterns { inset: 0; }
 .lantern { background: radial-gradient(closest-side, rgba(255, 200, 110, .5), transparent 76%); position: absolute; bottom: -14%; left: var(--x); width: var(--s); animation: lrise var(--d) linear var(--dl) infinite; }
 .lantern svg { animation: sway 5s ease-in-out infinite; }
@@ -314,6 +334,12 @@ body[data-stage=album] .stage { opacity: 0; transform: scale(.6); pointer-events
 .in { position: absolute; inset: 31% 31% 29%; display: block; }
 .o-laurel .in svg { animation: beat 2.6s ease-in-out infinite; }
 .o-col { width: calc(var(--W) * .052); }
+.o-bow { width: calc(var(--W) * .2); }
+.o-charm { width: calc(var(--W) * .085); align-self: flex-start; transform-origin: 50% 0; }
+.o-charm svg { transform-origin: 50% 0; animation: swing 4s ease-in-out infinite alternate; }
+.o-slip { width: calc(var(--W) * .13); }
+.o-dia { width: calc(var(--W) * .1); } .o-dia svg { animation: glint 4s ease-in-out infinite; }
+.o-shell { width: calc(var(--W) * .11); }
 .o-journal { width: calc(var(--W) * .13); }
 .o-bill { width: calc(var(--W) * .14); }
 .o-sym { width: calc(var(--W) * .07); } .o-sym.q { width: calc(var(--W) * .04); opacity: .6; }
@@ -343,6 +369,7 @@ body[data-stage=album] .stage { opacity: 0; transform: scale(.6); pointer-events
 .page-in.has-pic { grid-template-rows: 38% minmax(0, 1fr) 13%; }
 .pic { position: relative; display: block; height: 92%; aspect-ratio: 5/4; padding: 5px 5px 14px; background: #fffdf8; border-radius: 2px; transform: rotate(-2deg); box-shadow: 0 6px 14px rgba(60, 30, 50, .3); cursor: pointer; }
 .seen .orn-top > .pic { transform: rotate(-2deg); }
+.pic.alta { aspect-ratio: 7/10; }
 .pic img { display: block; width: 100%; height: 100%; object-fit: cover; -webkit-user-drag: none; }
 .pic .tape { width: 64px; height: 17px; margin-left: -32px; top: -9px; z-index: 1; }
 .ava { width: 2.6em; height: 2.6em; border-radius: 50%; object-fit: cover; object-position: 50% 12%; border: 1.5px solid var(--ouro-f); vertical-align: middle; margin-right: .6em; }
