@@ -491,7 +491,7 @@ for (let k = 0, n = reduce ? 3 : 9; k < n; k++) {
 
 /* pó de fada: rastro de brilhos atrás de cada fada */
 $('#fairies').innerHTML = FAIRY_DATA.slice(0, 6).map((f, i) =>
-  `<div class="fairy f${'abcdef'[i]}" data-tap="fairy"><i><span class="fz">${f.asas ? `<img class="asas" src="${esc(f.asas)}" alt="" draggable="false">` : ''}<img class="corpo" src="${esc(f.corpo)}" alt="" draggable="false"></span></i></div>`).join('');
+  `<div class="fairy f${'abcdef'[i]}" data-tap="fairy"><i><span class="fz">${f.asas ? `<img class="asas" src="${esc(f.asas)}" alt="" draggable="false">` : ''}<img class="corpo${f.olha === 'direita' ? ' vira' : ''}" src="${esc(f.corpo)}" alt="" draggable="false"></span></i></div>`).join('');
 const fairies = $$('.fairy');
 if (!reduce && fairies.length) setInterval(() => {
   if (document.hidden) return;

@@ -37,10 +37,15 @@ const PHOTO_DATA = [
 const PHOTO_SHUFFLE = true;
 
 /* Fadas que voam pela cena, uma entrada por personagem (até 6).
-   corpo = PNG com fundo transparente; asas = PNG só das asas (opcional: se existir, elas batem).
+   corpo = PNG com fundo transparente; asas = PNG só das asas (opcional: se existir, elas batem);
+   olha: "direita" se a figura estiver virada para a direita (o padrão é esquerda).
    Para adicionar outra fada: coloque o PNG em "img" e inclua uma linha aqui. */
 const FAIRY_DATA = [
-  { corpo: "img/fada-sininho.png", asas: "img/fada-asas.png" }
+  { corpo: "img/fada-sininho.png", asas: "img/fada-asas.png" },
+  { corpo: "img/fada-silvermist.png" },
+  { corpo: "img/fada-rosetta.png", olha: "direita" },
+  { corpo: "img/fada-periwinkle.png", olha: "direita" },
+  { corpo: "img/fada-fawn.png", olha: "direita" }
 ];
 
 /* Música opcional. Exemplo: "audio/musica.mp3". Vazio = sem botão de música. */

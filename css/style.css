@@ -194,6 +194,7 @@ body[data-scene=neve] .petal.flake { opacity: .9; }
 .fz img { display: block; width: 100%; -webkit-user-drag: none; }
 .fz .asas { position: absolute; inset: 0; transform-origin: 46% 40%; animation: wingflap .15s ease-in-out infinite alternate; }
 .fz .corpo { position: relative; }
+.fz .corpo.vira { transform: scaleX(-1); }
 @keyframes wingflap { from { transform: scaleX(1) rotate(0deg); } to { transform: scaleX(.55) rotate(8deg); } }
 @keyframes hover { 0%, 100% { transform: translateY(0) rotate(-5deg); } 25% { transform: translateY(-6px) rotate(1deg); } 50% { transform: translateY(-10px) rotate(5deg); } 75% { transform: translateY(-3px) rotate(-1deg); } }
 @keyframes aura { 50% { transform: scale(1.2); opacity: .55; } }
@@ -201,9 +202,9 @@ body[data-scene=neve] .petal.flake { opacity: .9; }
 @keyframes face-r { 0% { transform: scaleX(1); } 50% { transform: scaleX(-1); } }
 .fa { top: 1.5vh; --path: fly-a; --d: 28s; }
 .fb { top: 79vh; --path: fly-b; --d: 35s; --dl: -9s; --h: 2.9s; }
-.fc { top: 20vh; --path: fly-c; --d: 19s; --dl: -4s; --h: 2s; width: clamp(24px, 7vw, 40px); }
-.fd { top: 9vh; --path: fly-d; --d: 41s; --dl: -20s; --h: 3.2s; --face: face-r; width: clamp(28px, 8vw, 46px); }
-.fe { top: 80vh; --path: fly-e; --d: 30s; --dl: -15s; --h: 2.2s; width: clamp(22px, 6.5vw, 36px); }
+.fc { top: 20vh; --path: fly-c; --d: 19s; --dl: -4s; --h: 2s; width: clamp(30px, 9vw, 50px); }
+.fd { top: 9vh; --path: fly-d; --d: 41s; --dl: -20s; --h: 3.2s; --face: face-r; width: clamp(34px, 10vw, 56px); }
+.fe { top: 80vh; --path: fly-e; --d: 30s; --dl: -15s; --h: 2.2s; width: clamp(26px, 7.5vw, 42px); }
 .ff { top: 83vh; --path: fly-f; --d: 37s; --dl: -27s; --h: 2.7s; --face: face-r; width: clamp(24px, 7vw, 40px); }
 /* cada rota tem paradas (a fada paira) e muda de escala para dar profundidade */
 @keyframes fly-a { 0%, 100% { transform: translate3d(-16vw, 0, 0) scale(.8); } 12% { transform: translate3d(20vw, 2.5vh, 0) scale(1); } 24% { transform: translate3d(23vw, 1vh, 0) scale(1.08); } 50% { transform: translate3d(106vw, -1vh, 0) scale(.8); } 62% { transform: translate3d(70vw, 3vh, 0) scale(1); } 76% { transform: translate3d(66vw, 1vh, 0) scale(1.1); } }
