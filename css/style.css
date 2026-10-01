@@ -186,6 +186,7 @@ body[data-scene=neve] .petal.flake { opacity: .9; }
 @keyframes flap { to { transform: scaleX(.3); } }
 
 /* fadas: voam pelas margens, nunca sobre o texto. Asas e corpo são camadas separadas para as asas baterem. */
+#fairies { position: absolute; inset: 0; }
 .fairy { position: absolute; left: 0; width: clamp(36px, 10.5vw, 60px); pointer-events: auto; cursor: pointer; animation: var(--path) var(--d) ease-in-out var(--dl, 0s) infinite; }
 .fairy i { display: block; animation: var(--face, face) var(--d) steps(1) var(--dl, 0s) infinite; }
 .fairy::before { content: ''; position: absolute; inset: -30% -55%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 244, 190, .55), rgba(255, 236, 160, .18) 55%, transparent); animation: aura 2.4s ease-in-out infinite; pointer-events: none; }
